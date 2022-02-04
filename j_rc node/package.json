@@ -1,0 +1,30 @@
+{
+  "name": "pkg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "j_kiosk.js",
+  "bin": "j_kiosk.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "pkg": {
+    "assets": [
+      "**/*"
+    ],
+    "targets": [
+      "node17-macos-arm64",
+      "node14-linux"
+    ],
+    "outputPath": "dist/"
+  },
+  "author": "Joel Grayson <joel@joelgrayson.com> (https://github.com/JoelGrayson)",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "chalk-animation": "^1.3.0",
+    "figlet": "^1.5.2",
+    "gradient": "^0.2.0",
+    "gradient-string": "^2.0.0",
+    "inquirer": "^8.2.0"
+  }
+}
