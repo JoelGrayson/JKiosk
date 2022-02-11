@@ -28,4 +28,12 @@ function start() {
     exec('sudo systemctl start kiosk.service', printStdout);
 }
 
-module.exports={ enable, disable, start };
+function stop() {
+    exec('sudo systemctl stop kiosk.service', printStdout);
+}
+
+function status() {
+    exec('sudo systemctl status kiosk.service', printStdout);
+}
+
+module.exports={ enable, disable, start, stop, status };

@@ -6,7 +6,7 @@ const gradient = require('gradient-string');
 
 //Scenes
 const title=require('./title');
-const { enable, disable, start } = require('./commands.js');
+const { enable, disable, start, stop, status } = require('./commands.js');
 
 // Main
 async function main() {
@@ -20,7 +20,9 @@ async function main() {
         choices: [
             'enable',
             'disable',
-            'start'
+            'start',
+            'stop',
+            'status'
         ]
     })
     switch (response.action) {
@@ -37,6 +39,14 @@ async function main() {
         case 'start':
             console.log(chalk.green('Starting'))
             start();
+            break;
+        case 'stop':
+            console.log(chalk.red('Stopping'))
+            stop();
+            break;
+        case 'status':
+            console.log(chalk.blue('Getting status'))
+            status();
             break;
         default:
             console.log(chalk.red('Error: Unknown response:', response))
