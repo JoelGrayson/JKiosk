@@ -7,6 +7,10 @@
 j_kiosk() {
 	j_kiosk_help() { #local function not defined outside
 		echo 'Parameter (such as `j_kiosk enable`)'
+		echo "# Porcelain (high-level commands")
+		echo "* on"
+		echo "* off"
+		echo "# Plumbing (low-level)"
 		echo "* enable"
 		echo "* disable"
 		echo "* start"
@@ -19,7 +23,25 @@ j_kiosk() {
 		j_kiosk_help
 	
 	else #arguments
-		if [[ "$1" == "enable" ]]
+		# Porcelain
+		if [[ "$1" == "on" ]]
+		then
+			echo "~~~Turning ON~~~"
+			sudo systemctl enable kiosk.service
+		elif [[ "$1" == "off" ]]
+		then
+			echo "~~~Turning OFF~~~"
+			
+			echo "Disabling"
+			sudo systemctl disable kiosk.service
+			echo "Stopping"
+			sleep 3
+			sudo systemctl stop kiosk.service
+			echo "Rebooting"
+			sleep 3
+			sudo reboot
+		# Plumbing
+		elif [[ "$1" == "enable" ]]
 		then
 			echo "~~~Enabled j_kiosk~~~"
 			echo 'Type `sudo reboot` to disable'
