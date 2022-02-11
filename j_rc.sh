@@ -7,10 +7,10 @@
 j_kiosk() {
 	if [ -z "$1" ]
 	then #No arguments supplied
-        echo "Parameters"
-        echo "* enable"
-        echo "* disable"
-        echo "* start"
+		echo "Parameters"
+		echo "* enable"
+		echo "* disable"
+		echo "* start"
 
 	else #arguments
 		if [[ "$1" == "enable" ]]
