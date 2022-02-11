@@ -11,6 +11,7 @@ j_kiosk() {
 		echo "* enable"
 		echo "* disable"
 		echo "* start"
+		echo "* status"
 
 	else #arguments
 		if [[ "$1" == "enable" ]]
@@ -30,6 +31,11 @@ j_kiosk() {
 			echo "~~~Starting kiosk~~~"
 
 			sudo systemctl start kiosk.service
+		elif [[ "$1" == "status" ]]
+		then
+			echo "~~~Getting Status of kiosk.service~~~"
+
+			sudo systemctl status kiosk.service
 		else
 			echo "Unknown command: $1"
 		fi
