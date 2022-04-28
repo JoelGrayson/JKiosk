@@ -1,3 +1,8 @@
+# Entry Point
+/.bashrc -> j_kiosk.sh (have j_kiosk command)
+@reboot in crontab -> j_rc (j_kiosk on)
+
+
 # J_Kiosk
 ## How To Use
 ```bash
@@ -24,3 +29,8 @@ Calls the j_rc.sh
 
 #### j_rc.sh
 Has custom commands to make command line kiosk management easier such as `j_kiosk`
+
+
+# Background Splash Screen
+* GUI add in desktop preferences
+* /usr/share/plymouth/themes/pix/splash.png for system
