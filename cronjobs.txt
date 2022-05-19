@@ -1,0 +1,6 @@
+# Source on reboot
+@reboot source "~/J Kiosk/reboot startup.sh"
+
+# Shutdown at 3:51pm and 6:08 every day
+51 3 * * * sudo shutdown now
+8 6 * * * sudo shutdown now
