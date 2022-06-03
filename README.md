@@ -1,6 +1,6 @@
 # Entry Point
 /.bashrc -> j_kiosk.sh (have j_kiosk command)
-@reboot in crontab -> j_rc (j_kiosk on)
+@reboot in crontab -> j_kiosk (j_kiosk on)
 
 
 # J_Kiosk
@@ -18,16 +18,22 @@ This file and directory contains what I have configured on the Raspberry Pi OS. 
 ### Necessary For Kiosk
 #### Kiosk.service (/usr/lib/systemd/system/kiosk.service)
 This file is located at /usr/lib/systemd/system/kiosk.service
-Kiosk service file (kiosk.service) has information about kiosk mode such as the environment as well as where the kiosk.sh file is
+Kiosk service file (kiosk.service) has information about kiosk mode such as the environment as well as where the kiosk.sh file is.
 
 #### kiosk.sh
-Kiosk shell file has configuration about the 
+Kiosk shell file has configuration about the Raspi kiosk mode.
+It is called by the kiosk.service file.
+
+#### reboot startup.sh
+Called by the cronjob when reopening kiosk.
+
+
 
 ### Syntactic Sugar
 #### ~/.bashrc
-Calls the j_rc.sh
+Calls the j_kiosk.sh
 
-#### j_rc.sh
+#### j_kiosk.sh
 Has custom commands to make command line kiosk management easier such as `j_kiosk`
 
 
