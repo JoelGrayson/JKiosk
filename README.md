@@ -1,16 +1,21 @@
+# Installation
+1. git clone https://github.com/JoelGrayson/J_Kiosk.git
+2. sudo ./install.sh
+3. set the splash screen
+4. sudo reboot
+
+
+# J_Kiosk
 # Entry Point
 /.bashrc -> j_kiosk.sh (have j_kiosk command)
 @reboot in crontab -> j_kiosk (j_kiosk on)
 
-
-# J_Kiosk
 ## How To Use
 ```bash
 j_kiosk enable
 j_kiosk start
 #if necessary, sudo reboot
 ```
-
 
 ## About This File & Directory
 This file and directory contains what I have configured on the Raspberry Pi OS. It includes files and aliases to other system files. This file describes the usage of each file.
