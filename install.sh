@@ -9,3 +9,6 @@ source j_kiosk.sh
 sudo cp "$HOME/J_Kiosk/kiosk.service" "/usr/lib/systemd/"
 # j_kiosk.sh, kiosk.sh, reboot startup.sh stays
 sudo cp "$HOME/J_Kiosk/kiosk.service" "/"
+
+crontab cronjobs #sets cronjobs as the new crontab
+

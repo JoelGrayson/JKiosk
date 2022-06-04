@@ -28,7 +28,6 @@ It is called by the kiosk.service file.
 Called by the cronjob when reopening kiosk.
 
 
-
 ### Syntactic Sugar
 #### ~/.bashrc
 Calls the j_kiosk.sh
