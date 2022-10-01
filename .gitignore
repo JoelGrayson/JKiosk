@@ -3,3 +3,5 @@
 # Ignore because too big (zips included)
 **/pkg-node*-linux
 **/pkg-node*-macos
+
+archived

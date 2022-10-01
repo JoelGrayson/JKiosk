@@ -1,0 +1,7 @@
+# Source on reboot
+@reboot source "$HOME/JKiosk/exec/system/reboot startup.sh"
+
+# Turn off monitor through relay at 4pm
+00 4 * * * "$HOME/JKiosk/exec/relay/HIGH"
+# Turn off itself at 4:01pm
+01 4 * * * sudo reboot -h now

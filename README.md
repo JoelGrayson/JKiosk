@@ -1,19 +1,22 @@
-# Installation
-1. git clone https://github.com/JoelGrayson/J_Kiosk.git
-2. sudo ./install.sh
-3. set the splash screen
-4. sudo reboot
+# Easy Install on Raspberry Pi
+Run
+```sh
+bash -c "$(wget https://buseroo.com/JKiosk/install.sh)"
+```
+
+---
 
 
-# J_Kiosk
+
+# JKiosk
 # Entry Point
-/.bashrc -> j_kiosk.sh (have j_kiosk command)
-@reboot in crontab -> j_kiosk (j_kiosk on)
+/.bashrc -> JKiosk.sh (have JKiosk command)
+@reboot in crontab -> JKiosk (JKiosk on)
 
 ## How To Use
 ```bash
-j_kiosk enable
-j_kiosk start
+JKiosk enable
+JKiosk start
 #if necessary, sudo reboot
 ```
 
@@ -35,10 +38,10 @@ Called by the cronjob when reopening kiosk.
 
 ### Syntactic Sugar
 #### ~/.bashrc
-Calls the j_kiosk.sh
+Calls the JKiosk.sh
 
-#### j_kiosk.sh
-Has custom commands to make command line kiosk management easier such as `j_kiosk`
+#### JKiosk.sh
+Has custom commands to make command line kiosk management easier such as `JKiosk`
 
 
 # Background Splash Screen
