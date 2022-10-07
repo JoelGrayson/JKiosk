@@ -1,23 +1,29 @@
 #!/bin/bash
 # ABOUT: This file is located at https://buseroo.com/JKiosk/install.sh
+# Last updated 10.7.22
+# Created 11.2021
+
 
 # Preparing
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt install -y vim nodejs rpi.gpio #for syntax highlighting
-sudo apt purge wolfram-engine scratch scratch2 nuscratch minecraft-pi libreoffice* penguinspuzzle #remove unnecessary packages
+sudo apt install -y vim nodejs #for syntax highlighting
+sudo apt purge wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
 sudo apt clean
 sudo apt autoremove -y
 
+ERR() {
+    echo "[ERR] $1"
+    exit 65
+}
 
 # Get JKiosk from GitHub
-cd "$HOME" || exit 1
-git clone https://github.com/JoelGrayson/JKiosk.git
+git clone https://github.com/JoelGrayson/JKiosk.git || ERR 'Could not clone git repository'
 BASE="$HOME/JKiosk"
-cd "$BASE" || echo "[ERR] Could not install JKiosk properly" && exit 1
+cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 # Moves files to correct locations
-sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/"
+sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/" || ERR "can't move kiosk.service"
 crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab
 
 # Make files executable
@@ -46,4 +52,4 @@ git config --global user.email joel@joelgrayson.com
 
 
 # Fin
-echo "Finished setting up. Run \`sudo reboot\` when you are ready."
+printf "\n\nFinished setting up. Run \`sudo reboot\` when you are ready.\n"
