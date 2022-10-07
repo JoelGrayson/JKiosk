@@ -65,9 +65,9 @@ sudo systemctl enable kiosk.service #means the kiosk will automatically turn int
 section '6. Finishing Up'
 
 # Source jkiosk.sh on every terminal window opened (session startup)
-grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of jkiosk in ~/.bashrc. Remove one."
+grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
 echo "
-# jkiosk
+# JKiosk
 source '$BASE/exec/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
 

@@ -26,5 +26,5 @@ pcmanfm --set-wallpaper "$WALLPAPER"
 
 section 'Remaining Steps to do Manually below:'
 
-echo '1. Remove #jkiosk line from bashrc'
+echo '1. Remove #JKiosk line from ~/.bashrc'
 
