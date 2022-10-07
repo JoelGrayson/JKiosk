@@ -18,7 +18,7 @@ WARN() {
 # Preparing
 section '1. Preparing'
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 sudo apt purge -y wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
 sudo apt clean -y
 sudo apt autoremove -y
