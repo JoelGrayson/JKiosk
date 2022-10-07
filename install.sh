@@ -11,6 +11,9 @@ ERR() {
     echo "[ERR] $1"
     exit 65
 }
+WARN() {
+    echo "[WARN] $1"
+}
 
 # Preparing
 section '1. Preparing'
@@ -39,11 +42,12 @@ chmod +x "$BASE/exec/system/JKiosk.sh"
 chmod +x "$BASE/exec/relay/HIGH"
 chmod +x "$BASE/exec/relay/LOW"
 
+
+section '4. Setting Wallpaper and Splash Screen'
 # Set splash screen for when raspberry pi is booting
-section '4. Finishing Up'
 SPLASH_DIR="/usr/share/plymouth/themes/pix"
 sudo mv "$SPLASH_DIR/splash.png" "$SPLASH_DIR/splash.png.bak" #backup splash saver
-sudo cp "$BASE/exec/system/splash.png" "$SPLASH_DIR/splash.png"
+sudo cp "$BASE/theme/splash.png" "$SPLASH_DIR/splash.png"
 
 # Set desktop wallpaper
 sudo unlink /etc/alternatives/desktop-background #these two lines should do it in other versions
@@ -52,16 +56,15 @@ pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it i
 
 
 # Source JKiosk.sh on every session startup
-echo "
-# JKiosk
-source \"$BASE/exec/system/JKiosk.sh\"
-" >> ~/.bashrc
+section '5. Finishing Up'
+grep -q '# JKiosk' < '~/.bashrc' && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
 
+# JKiosk
+source "\"$BASE/exec/system/JKiosk.sh\"" >> ~/.bashrc
 
 # Git
 git config --global user.name "Joel Grayson"
 git config --global user.email joel@joelgrayson.com
-
 
 # Fin
 echo "Finished setting up. Run \`sudo reboot\` when you are ready."
