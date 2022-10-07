@@ -41,8 +41,7 @@ crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns 
 
 # Make files executable
 chmod +x "$BASE/exec/system/kiosk.sh"
-chmod +x "$BASE/exec/system/kiosk startup.sh"
-chmod +x "$BASE/exec/system/JKiosk.sh"
+chmod +x "$BASE/exec/system/jkiosk.sh"
 chmod +x "$BASE/exec/relay/HIGH"
 chmod +x "$BASE/exec/relay/LOW"
 
@@ -65,11 +64,11 @@ sudo systemctl enable kiosk.service #means the kiosk will automatically turn int
 
 section '6. Finishing Up'
 
-# Source JKiosk.sh on every terminal window opened (session startup)
-grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
+# Source jkiosk.sh on every terminal window opened (session startup)
+grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of jkiosk in ~/.bashrc. Remove one."
 echo "
-# JKiosk
-source '$BASE/exec/system/JKiosk.sh'
+# jkiosk
+source '$BASE/exec/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
 
 

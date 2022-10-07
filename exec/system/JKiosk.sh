@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Source this file to access `JKiosk` command
+# Source this file to access `jkiosk` command
 
-JKiosk() {
+jkiosk() {
     #* Methods
-	JKiosk_help() { #local function not defined outside
-		echo "Parameter (such as 'JKiosk enable')"
+	jkiosk_help() { #local function not defined outside
+		echo "Parameter (such as 'jkiosk enable')"
 		echo "# Porcelain (high-level commands)"
 		echo "* on - enable & start"
 		echo "* off - disable, stop, & reboot"
@@ -14,7 +14,6 @@ JKiosk() {
 		echo "* disable"
 		echo "* start"
 		echo "* status"
-		echo "* js (options node interactive version)"
 	}
 
     on() {
@@ -37,7 +36,7 @@ JKiosk() {
     }
 
     enable() {
-        echo "~~~Enabled JKiosk~~~"
+        echo "~~~Enabled kiosk~~~"
         echo "Type 'sudo reboot' to disable"
 
         sudo systemctl enable kiosk.service
@@ -73,7 +72,7 @@ JKiosk() {
     called=false
 
     # Help
-	[ -z "$1" ] || [ "$1" = 'help' ] && called=true && JKiosk_help
+	[ -z "$1" ] || [ "$1" = 'help' ] && called=true && jkiosk_help
 
     # Porcelain
     [ "$1" = "on" ]  && called=true && on
@@ -85,10 +84,9 @@ JKiosk() {
     [ "$1" = "start" ]   && called=true && start
     [ "$1" = "stop" ]    && called=true && stop
     [ "$1" = "status" ]  && called=true && status
-    [ "$1" = "js" ]      && called=true && js
 	
 
     # If no command was triggered
     ! $called && echo "Unknown command: $1
-Type 'JKiosk help' for full commands"
+Type 'jkiosk help' for full commands"
 }
