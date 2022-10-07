@@ -20,9 +20,9 @@ section '1. Preparing'
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt purge -y wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
-sudo apt clean
+sudo apt clean -y
 sudo apt autoremove -y
-sudo apt install -y vim xdotool unclutter sed #install needed packages
+sudo apt-get install -y vim xdotool unclutter sed #install needed packages
 
 # Get JKiosk from GitHub
 section '2. JKiosk from GitHub'
