@@ -8,23 +8,25 @@ section() { # print out sections
 }
 
 section 'Removing JKiosk'
-
 rm -rf "$HOME/JKiosk"
 
+
+section 'Turn off Kiosk Mode'
+sudo systemctl disable kiosk.service
+
+
 section 'Restoring Desktop Wallpaper'
-# Restore backup plymouth theme
 WALLPAPER='/usr/share/plymouth/themes/pix/splash.png'
 sudo rm "$WALLPAPER"
-if [ -e "$WALLPAPER.bak" ]; then
+if [ -e "$WALLPAPER.bak" ]; then #use backup
     sudo mv "$WALLPAPER.bak" "$WALLPAPER"
-else
-    echo 'Select wallpaper from rdp-wallpaper'
-    pcmanfm '/usr/share/rdp-wallpaper'
+    pcmanfm --set-wallpaper "$WALLPAPER"
+else #user picks
+    echo 'Select wallpaper from rpd-wallpaper'
+    pcmanfm '/usr/share/rpd-wallpaper' #open in file manager
 fi
-pcmanfm --set-wallpaper "$WALLPAPER"
 
 
 section 'Remaining Steps to do Manually below:'
-
-echo '1. Remove #JKiosk line from ~/.bashrc'
+grep '# JKiosk' < ~/.bashrc && echo 'Remove # JKiosk line from ~/.bashrc'
 
