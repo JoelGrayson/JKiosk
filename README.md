@@ -1,7 +1,7 @@
-# Easy Install on Raspberry Pi
-Run
+# Quick-n-easy Install
+Running the following command will turn a Raspberry Pi into a Buseroo kiosk:
 ```sh
-bash -c "$(curl http://buseroo.com/jkiosk/install.sh)"
+bash -c "$(curl -L http://buseroo.com/jkiosk/install.sh)"
 ```
 
 
