@@ -46,8 +46,9 @@ sudo mv "$SPLASH_DIR/splash.png" "$SPLASH_DIR/splash.png.bak" #backup splash sav
 sudo cp "$BASE/exec/system/splash.png" "$SPLASH_DIR/splash.png"
 
 # Set desktop wallpaper
-sudo unlink /etc/alternatives/desktop-background
+sudo unlink /etc/alternatives/desktop-background #these two lines should do it in other versions
 sudo ln -s "$BASE/themes/desktop background.png" /etc/alternatives/desktop-background
+pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it in my raspis
 
 
 # Source JKiosk.sh on every session startup
