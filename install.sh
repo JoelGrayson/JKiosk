@@ -39,17 +39,21 @@ chmod +x "$BASE/exec/system/JKiosk.sh"
 chmod +x "$BASE/exec/relay/HIGH"
 chmod +x "$BASE/exec/relay/LOW"
 
-# Splash screen
+# Set splash screen for when raspberry pi is booting
 section '4. Finishing Up'
 SPLASH_DIR="/usr/share/plymouth/themes/pix"
 sudo mv "$SPLASH_DIR/splash.png" "$SPLASH_DIR/splash.png.bak" #backup splash saver
 sudo cp "$BASE/exec/system/splash.png" "$SPLASH_DIR/splash.png"
 
+# Set desktop wallpaper
+sudo unlink /etc/alternatives/desktop-background
+sudo ln -s "$BASE/themes/desktop background.png" /etc/alternatives/desktop-background
+
 
 # Source JKiosk.sh on every session startup
 echo "
 # JKiosk
-source \"$HOME/exec/system/JKiosk.sh\"
+source \"$BASE/exec/system/JKiosk.sh\"
 " >> ~/.bashrc
 
 
@@ -59,4 +63,4 @@ git config --global user.email joel@joelgrayson.com
 
 
 # Fin
-printf "\n\nFinished setting up. Run \`sudo reboot\` when you are ready.\n"
+echo "Finished setting up. Run \`sudo reboot\` when you are ready."
