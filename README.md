@@ -1,14 +1,8 @@
 # Easy Install on Raspberry Pi
 Run
 ```sh
-bash -c "$(curl https://raw.githubusercontent.com/JoelGrayson/JKiosk/master/install.sh)"
+bash -c "$(curl http://buseroo.com/jkiosk/install.sh)"
 ```
-which will eventually be installable as
-```sh
-bash -c "$(curl https://buseroo.com/JKiosk/install.sh)"
-```
-
----
 
 
 
