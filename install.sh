@@ -15,6 +15,10 @@ WARN() {
     echo "[WARN] $1"
 }
 
+# Check if JKiosk already exists
+[ -d "$HOME/JKiosk" ] && ERR 'JKiosk already installed'
+
+
 # Preparing
 section '1. Preparing'
 sudo apt-get update
