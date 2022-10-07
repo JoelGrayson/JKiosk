@@ -19,10 +19,10 @@ WARN() {
 section '1. Preparing'
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt install -y vim nodejs #for syntax highlighting
-sudo apt purge wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
+sudo apt purge -y wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
 sudo apt clean
 sudo apt autoremove -y
+sudo apt install -y vim xdotool unclutter sed #install needed packages
 
 # Get JKiosk from GitHub
 section '2. JKiosk from GitHub'
@@ -33,7 +33,7 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 # Moves files to correct locations
 section '3. Processing JKiosk Files'
 sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/" || ERR "can't move kiosk.service"
-crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab
+crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
 # Make files executable
 chmod +x "$BASE/exec/system/kiosk.sh"
@@ -55,12 +55,19 @@ sudo ln -s "$BASE/themes/desktop background.png" /etc/alternatives/desktop-backg
 pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it in my raspis
 
 
-# Source JKiosk.sh on every session startup
-section '5. Finishing Up'
-grep -q '# JKiosk' < '~/.bashrc' && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
+section '5. Enabling kiosk mode'
+sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
 
+
+section '6. Finishing Up'
+
+# Source JKiosk.sh on every terminal window opened (session startup)
+grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
+echo "
 # JKiosk
-source "\"$BASE/exec/system/JKiosk.sh\"" >> ~/.bashrc
+source '$BASE/exec/system/JKiosk.sh'
+" >> "$HOME/.bashrc"
+
 
 # Git
 git config --global user.name "Joel Grayson"
