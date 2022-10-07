@@ -70,6 +70,7 @@ echo "
 # JKiosk
 source '$BASE/exec/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
+source "$BASE/exec/system/jkiosk.sh" #source for this session
 
 
 # Git
