@@ -36,6 +36,9 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 # Moves files to correct locations
 section '3. Processing JKiosk Files'
+old_text="USERNAME_INSERTED_HERE_BY_INSTALL_SH"
+new_text="$(whoami)"
+sed -i "s/$old_text/$new_text/g" "$BASE/exec/system/kiosk.service"  # change kiosk.service name to user name
 sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
 crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
