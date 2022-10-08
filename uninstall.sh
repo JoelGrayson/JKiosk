@@ -9,6 +9,7 @@ section() { # print out sections
 
 section 'Removing JKiosk'
 rm -rf "$HOME/JKiosk"
+sudo rm "/usr/lib/systemd/system/kiosk.service"
 
 
 section 'Turn off Kiosk Mode'
@@ -22,8 +23,9 @@ if [ -e "$WALLPAPER.bak" ]; then #use backup
     sudo mv "$WALLPAPER.bak" "$WALLPAPER"
     pcmanfm --set-wallpaper "$WALLPAPER"
 else #user picks
-    echo 'Select wallpaper from rpd-wallpaper'
-    pcmanfm '/usr/share/rpd-wallpaper' #open in file manager
+    # echo 'Select wallpaper from rpd-wallpaper'
+    # pcmanfm '/usr/share/rpd-wallpaper' #open in file manager
+    pcmanfm --set-wallpaper '/usr/share/rdp-wallpaper/clouds.jpg'
 fi
 
 
