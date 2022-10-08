@@ -20,11 +20,11 @@ section 'Restoring Desktop Wallpaper'
 WALLPAPER='/usr/share/plymouth/themes/pix/splash.png'
 sudo rm "$WALLPAPER"
 if [ -e "$WALLPAPER.bak" ]; then #use backup
+    echo "Reverting to your previous desktop wallpaper"
     sudo mv "$WALLPAPER.bak" "$WALLPAPER"
     pcmanfm --set-wallpaper "$WALLPAPER"
-else #user picks
-    # echo 'Select wallpaper from rpd-wallpaper'
-    # pcmanfm '/usr/share/rpd-wallpaper' #open in file manager
+else #use default clouds.jpg
+    echo "Using the default clouds.jpg wallpaper"
     pcmanfm --set-wallpaper '/usr/share/rpd-wallpaper/clouds.jpg'
 fi
 
