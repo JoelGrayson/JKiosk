@@ -3,7 +3,6 @@
 # created on 7.23.21
 # last modified on 12.9.21
 
-
 xset s noblank
 xset s off
 xset -dpms

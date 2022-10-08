@@ -8,11 +8,10 @@ Environment=DISPLAY=:0.0
 Environment=XAUTHORITY=/home/pi/.Xauthority
 Type=forking
 # Below is the path of the kiosk.sh file
-ExecStart=/bin/bash /home/pi/JKiosk/kiosk.sh
+ExecStart=/bin/bash ~/JKiosk/exec/system/kiosk.sh
 Restart=on-abort
 User=pi
 Group=pi
 
 [Install]
 WantedBy=graphical.target
-
