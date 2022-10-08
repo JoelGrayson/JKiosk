@@ -1,5 +1,5 @@
 #!/bin/bash
-# ABOUT: This file is located at https://buseroo.com/JKiosk/install.sh
+# ABOUT: This file is located at http://buseroo.com/JKiosk/install.sh
 # Last updated 10.7.22
 # Created 11.2021
 
@@ -23,11 +23,16 @@ WARN() {
 section '1. Preparing'
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt purge -y wolfram-engine scratch nuscratch #remove unnecessary packages
+sudo apt purge -y smartsim java-common wolfram-engine scratch nuscratch #remove unnecessary packages
 # sudo apt purge -y libreoffice* scratch2 remove other unnecessary packages
 sudo apt clean -y
 sudo apt autoremove -y
-sudo apt-get install -y vim xdotool unclutter sed #install needed packages
+sudo apt-get install -y vim unclutter sed #install needed packages
+    # sed for kiosk.service parsing
+    # unclutter to hide the cursor
+
+# TODO: enable autologin through instructions `Now within the tool go to 1 System Options -> S5 Boot / Auto Login -> B4 Desktop Autologin`
+
 
 # Get JKiosk from GitHub
 section '2. Clone JKiosk from GitHub'
