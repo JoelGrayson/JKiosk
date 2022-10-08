@@ -36,9 +36,14 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 # Moves files to correct locations
 section '3. Processing JKiosk Files'
-old_text="USERNAME_INSERTED_HERE_BY_INSTALL_SH"
-new_text="$(whoami)"
-sed -i "s/$old_text/$new_text/g" "$BASE/exec/system/kiosk.service"  # change kiosk.service name to user name
+# Insert values into kiosk.service bc kiosk.service cannot expand values such as ~ or $(whoami)
+old_text_end="INSERTED_HERE_BY_INSTALL_SH"
+sed -i "s/HOME_$old_text_end/$HOME/g" "$BASE/exec/system/kiosk.service"
+sed -i "s/BASE_$old_text_end/$BASE/g" "$BASE/exec/system/kiosk.service"
+sed -i "s/USERNAME_$old_text_end/$(whoami)/g" "$BASE/exec/system/kiosk.service"
+sed -i "s/GROUP_$old_text_end/pi/g" "$BASE/exec/system/kiosk.service" #cannot calculate group ¯\_(ツ)_/¯
+
+
 sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
 crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
@@ -80,5 +85,7 @@ source "$BASE/exec/system/jkiosk.sh" #source for this session
 git config --global user.name "Joel Grayson"
 git config --global user.email joel@joelgrayson.com
 
-# Fin
-echo "Finished setting up. Run \`sudo reboot\` when you are ready."
+
+section '7. Starting up kiosk mode!'
+sudo systemctl start kiosk.service
+
