@@ -1,6 +1,6 @@
 #!/bin/bash
 # ABOUT: when executed, puts the file in kiosk mode
-# created on 7.23.21
+# created on 10.7.21
 # last modified on 12.9.21
 
 xset s noblank
@@ -20,6 +20,6 @@ sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' /home/pi/.config/chromium
 
 # Testing whether or not to do below
 while true; do
-	xdotool keydown ctrl+Tab; xdtool keyup ctrl+Tab;
+	xdotool keydown ctrl+Tab; xdotool keyup ctrl+Tab;
 	sleep 10
 done

@@ -29,4 +29,5 @@ fi
 
 section 'Remaining Steps to do Manually below:'
 grep '# JKiosk' < ~/.bashrc && echo 'Remove # JKiosk line from ~/.bashrc'
+echo 'Run \`sudo reboot\` when ready'
 
