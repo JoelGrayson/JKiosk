@@ -25,7 +25,7 @@ if [ -e "$WALLPAPER.bak" ]; then #use backup
 else #user picks
     # echo 'Select wallpaper from rpd-wallpaper'
     # pcmanfm '/usr/share/rpd-wallpaper' #open in file manager
-    pcmanfm --set-wallpaper '/usr/share/rdp-wallpaper/clouds.jpg'
+    pcmanfm --set-wallpaper '/usr/share/rpd-wallpaper/clouds.jpg'
 fi
 
 
