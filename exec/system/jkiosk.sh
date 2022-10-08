@@ -16,6 +16,7 @@ jkiosk() {
 		echo "* disable"
 		echo "* start"
 		echo "* status"
+        echo "* uninstall"
 	}
 
     on() {
@@ -69,6 +70,12 @@ jkiosk() {
         sudo systemctl status kiosk.service
     }
 
+    uninstall() {
+        echo '~~~Uninstalling JKiosk from this Raspberry Pi~~~'
+        bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
+    }
+
+
     #* Connect Methods
 
     called=false
@@ -86,6 +93,7 @@ jkiosk() {
     [ "$1" = "start" ]   && called=true && start
     [ "$1" = "stop" ]    && called=true && stop
     [ "$1" = "status" ]  && called=true && status
+    [ "$1" = "uninstall" ]  && called=true && uninstall
 	
 
     # If no command was triggered
