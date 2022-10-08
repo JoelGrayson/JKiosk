@@ -19,7 +19,7 @@ sudo systemctl disable kiosk.service
 section 'Restoring Desktop Wallpaper'
 WALLPAPER='/usr/share/plymouth/themes/pix/splash.png'
 sudo rm "$WALLPAPER"
-if [ -e "$WALLPAPER.bak" ]; then #use backup
+if [ -e "$WALLPAPER.bak" ]; then #use backup in plymouth pix
     echo "Reverting to your previous desktop wallpaper"
     sudo mv "$WALLPAPER.bak" "$WALLPAPER"
     pcmanfm --set-wallpaper "$WALLPAPER"
