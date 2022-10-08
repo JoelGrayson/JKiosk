@@ -23,7 +23,8 @@ WARN() {
 section '1. Preparing'
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt purge -y wolfram-engine scratch scratch2 nuscratch libreoffice* #remove unnecessary packages
+sudo apt purge -y wolfram-engine scratch nuscratch #remove unnecessary packages
+# sudo apt purge -y libreoffice* scratch2 remove other unnecessary packages
 sudo apt clean -y
 sudo apt autoremove -y
 sudo apt-get install -y vim xdotool unclutter sed #install needed packages
@@ -38,10 +39,10 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 section '3. Processing JKiosk Files'
 # Insert values into kiosk.service bc kiosk.service cannot expand values such as ~ or $(whoami)
 old_text_end="INSERTED_HERE_BY_INSTALL_SH"
-sed -i "s/HOME_$old_text_end/$HOME/g" "$BASE/exec/system/kiosk.service"
-sed -i "s/BASE_$old_text_end/$BASE/g" "$BASE/exec/system/kiosk.service"
-sed -i "s/USERNAME_$old_text_end/$(whoami)/g" "$BASE/exec/system/kiosk.service"
-sed -i "s/GROUP_$old_text_end/pi/g" "$BASE/exec/system/kiosk.service" #cannot calculate group ¯\_(ツ)_/¯
+sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator
+sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
+sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
+sed -i "s;GROUP_$old_text_end;pi;g" "$BASE/exec/system/kiosk.service" #cannot calculate group ¯\_(ツ)_/¯
 
 
 sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
