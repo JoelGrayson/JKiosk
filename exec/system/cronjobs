@@ -1,7 +1,7 @@
 # Turn on monitor on reboot
-@reboot "$HOME/JKiosk/exec/relay/LOW"
+@reboot "HOME_INSERTED_HERE_BY_INSTALL_SH/JKiosk/exec/relay/LOW"
 
 # Turn off monitor through relay at 4pm
-00 4 * * * "$HOME/JKiosk/exec/relay/HIGH"
+00 4 * * * "HOME_INSERTED_HERE_BY_INSTALL_SH/JKiosk/exec/relay/HIGH"
 # Turn off itself at 4:01pm
 01 4 * * * sudo reboot -h now

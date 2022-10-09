@@ -3,6 +3,7 @@
 # Last updated 10.7.22
 # Created 11.2021
 
+
 section() { # print out sections
     printf "\n$(tput setaf 2)----- %s -----$(tput sgr0)\n\n" "$1"
 }
@@ -18,8 +19,11 @@ WARN() {
 [ -d "$HOME/JKiosk" ] && ERR 'JKiosk already installed'
 
 
-# Preparing
+
+
+
 section '1. Preparing'
+
 sudo apt-get update
 sudo apt-get upgrade -y
 # Install gum for question
@@ -39,32 +43,50 @@ sudo apt-get install -y vim unclutter sed #install needed packages
 
 
 
-section '2. Select Your Institution'
-institution="$(curl https://buseroo.com/api/institutions | gum filter)"
 
+
+section '2. Select Your Institution'
+
+institutions="$(curl https://buseroo.com/api/institutions)"
 : 'Format of API:
 Riverdale Country School (newline)
 Fieldston
 Horace Mann
 '
+institution="$(echo "$institutions" | gum filter)"
 
 
 
-# Get JKiosk from GitHub
-section '2. Clone JKiosk from GitHub'
+
+
+section '3. Clone JKiosk from GitHub'
+
 git clone https://github.com/JoelGrayson/JKiosk.git || ERR 'Could not clone git repository'
 BASE="$HOME/JKiosk"
 cd "$BASE" || ERR 'Could not install JKiosk properly'
 
-# Moves files to correct locations
-section '3. Processing JKiosk Files'
-# Insert values into kiosk.service bc kiosk.service cannot expand values such as ~ or $(whoami)
+
+
+
+
+section '4. Filling in Values' # Insert values into files because they cannot expand values such as ~ or $(whoami)
+# kiosk.service
 old_text_end="INSERTED_HERE_BY_INSTALL_SH"
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator
 sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
 sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
-sed -i "s;GROUP_$old_text_end;pi;g" "$BASE/exec/system/kiosk.service" #cannot calculate group ¯\_(ツ)_/¯
+sed -i "s;GROUP_$old_text_end;pi;g" "$BASE/exec/system/kiosk.service" #cannot calculate group so hardcoded as 'pi'
+# cronjobs
+sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
+# kiosk.sh
+sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.sh"
+sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
 
+
+
+
+
+section '5. Processing JKiosk Files' # Moves files to correct locations
 
 sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
 crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
@@ -76,7 +98,10 @@ chmod +x "$BASE/exec/relay/HIGH"
 chmod +x "$BASE/exec/relay/LOW"
 
 
-section '4. Setting Wallpaper and Splash Screen'
+
+
+
+section '6. Setting Wallpaper and Splash Screen'
 # Set splash screen for when raspberry pi is booting
 SPLASH_DIR="/usr/share/plymouth/themes/pix"
 [ -e "$SPLASH_DIR/splash.png" ] && sudo mv "$SPLASH_DIR/splash.png" "$SPLASH_DIR/splash.png.bak" #backup splash saver
@@ -88,11 +113,18 @@ sudo ln -s "$BASE/themes/desktop background.png" /etc/alternatives/desktop-backg
 pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it in my raspis
 
 
-section '5. Enabling kiosk mode'
+
+
+
+section '7. Enabling kiosk mode'
+
 sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
 
 
-section '6. Finishing Up'
+
+
+
+section '8. Finishing Up'
 
 # Source jkiosk.sh on every terminal window opened (session startup)
 grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
@@ -108,6 +140,9 @@ git config --global user.name "Joel Grayson"
 git config --global user.email joel@joelgrayson.com
 
 
-section '7. Starting up kiosk mode!'
+
+
+
+section '9. Starting up kiosk mode!'
 sudo systemctl start kiosk.service
 
