@@ -6,6 +6,28 @@ bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 
 
 
+
+
+
+# Full Install Instructions
+**Install Raspberry Pi**
+    1. Download the Raspberry Pi Imager from https://www.raspberrypi.com/software/
+    2. Install Raspberry Pi OS onto a MicroSD card through the Imager.
+    3. Attach the MicroSD card, a touch screen, keyboard, and mouse to the Raspberry Pi.
+    4. Power up the kiosk and follow the setup instructions on screen.
+**Install JKiosk**
+5. Once the instructions are finished and the kiosk has rebooted, install JKiosk by running the following command:
+```sh
+bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
+```
+
+
+
+
+
+
+
+
 # JKiosk
 # Entry Point
 /.bashrc -> JKiosk.sh (have JKiosk command)
