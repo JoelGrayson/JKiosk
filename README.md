@@ -21,6 +21,22 @@ bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 ```
 
+<details>
+    <summary>
+        Debugging problems with installing JKiosk
+    </summary>
+    <ul>
+        <li><b>Problem</b>: How to uninstall JKiosk?
+        <br/>
+        <b>Solution</b>: <code>bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"</code>
+        </li>
+        <li><b>Problem</b>: Get the error message <code>Job for kiosk.service failed because the control process exited with err... See "systemctl status kiosk.services" and "journalctl -xe" for details</code>
+        <br/>
+        <b>Solution</b>: Run <code>systemctl status kiosk.service</code>. If you get the error <code>Failed to determine group credentials</code>, then the incorrect user group was specified. Uninstall and reinstall JKiosk specifying the <b>correct</b> user group.
+        </li>
+    </ul>
+</details>
+
 
 
 
