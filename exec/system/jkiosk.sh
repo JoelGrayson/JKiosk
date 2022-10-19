@@ -10,7 +10,7 @@ jkiosk() {
 		echo "Parameter (such as \`jkiosk enable\`)"
 		echo "# Porcelain (high-level commands)"
 		echo "  * on - enable & start"
-		echo "  * off - disable, stop, & reboot"
+		echo "  * off - stop & disable"
 		echo "# Plumbing (low-level)"
 		echo "  * enable"
 		echo "  * disable"
@@ -34,10 +34,6 @@ jkiosk() {
         
         echo "Disabling"
         sudo systemctl disable kiosk.service
-
-        sleep 3
-        echo "Rebooting"
-        sudo reboot
     }
 
     enable() { #pi enters kiosk mode on boot
