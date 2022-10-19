@@ -26,15 +26,17 @@ WARN() {
 
 
 
+
 section '1. Preparing'
 
 sudo apt-get update
 sudo apt-get upgrade -y
-# Install gum for question
-echo "deb https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-curl https://repo.charm.sh/apt/gpg.key | sudo apt-key add -
-sudo apt install gum
-
+# <gum> Install gum for question
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+sudo apt update && sudo apt install gum
+# </gum>
 sudo apt purge -y smartsim java-common wolfram-engine scratch nuscratch #remove unnecessary packages
 # sudo apt purge -y libreoffice* scratch2 remove other unnecessary packages
 sudo apt clean -y
@@ -42,8 +44,6 @@ sudo apt autoremove -y
 sudo apt-get install -y vim unclutter sed #install needed packages
     # sed for kiosk.service parsing
     # unclutter to hide the cursor
-
-# TODO: enable autologin through instructions `Now within the tool go to 1 System Options -> S5 Boot / Auto Login -> B4 Desktop Autologin`
 
 
 
@@ -65,12 +65,22 @@ Horace Mann'
 default_institution='Riverdale Country School'
 institution="$(echo "$institutions" | gum filter || echo "$default_institution")"
 [ -z "$institution" ] && institution="$default_institution" #default
+echo "Selected $institution as institution."
 
 
 
 
 
-section '3. Clone JKiosk from GitHub'
+section '3. What Group Are You?'
+printf "\nHere are a list of all the groups:\n$(groups)\n"
+user_group="$(gum input --prompt "What group is this user in (probably $(whoami))? ")"
+
+
+
+
+
+
+section '4. Clone JKiosk from GitHub'
 
 git clone https://github.com/JoelGrayson/JKiosk.git || ERR 'Could not clone git repository'
 BASE="$HOME/JKiosk"
@@ -80,13 +90,13 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 
 
-section '4. Filling in Values' # Expanding values into files because they cannot expand values such as ~ or $(whoami)
+section '5. Filling in Values' # Expanding values into files because they cannot expand values such as ~ or $(whoami)
 # kiosk.service
 old_text_end="INSERTED_HERE_BY_INSTALL_SH"
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator
 sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
 sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
-sed -i "s;GROUP_$old_text_end;pi;g" "$BASE/exec/system/kiosk.service" #cannot calculate group so hardcoded as 'pi'
+sed -i "s;GROUP_$old_text_end;$user_group;g" "$BASE/exec/system/kiosk.service" #user specified group earlier
 # cronjobs
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
 # kiosk.sh
@@ -97,7 +107,7 @@ sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
 
 
 
-section '5. Processing JKiosk Files' # Moves files to correct locations
+section '6. Processing JKiosk Files' # Moves files to correct locations
 
 # sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
 sudo cp "$BASE/exec/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR "can't move kiosk.service"
@@ -113,7 +123,7 @@ chmod +x "$BASE/exec/relay/LOW"
 
 
 
-section '6. Setting Wallpaper and Splash Screen'
+section '7. Setting Wallpaper and Splash Screen'
 # Set splash screen for when raspberry pi is booting
 SPLASH_DIR="/usr/share/plymouth/themes/pix"
 [ -e "$SPLASH_DIR/splash.png" ] && sudo mv "$SPLASH_DIR/splash.png" "$SPLASH_DIR/splash.png.bak" #backup splash saver
@@ -128,7 +138,7 @@ pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it i
 
 
 
-section '7. Finishing Up'
+section '8. Finishing Up'
 
 # Source jkiosk.sh on every terminal window opened (session startup)
 grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
@@ -147,7 +157,7 @@ git config --global user.email joel@joelgrayson.com
 
 
 
-section '8. Starting up kiosk mode!'
+section '9. Starting up kiosk mode!'
 sleep 8 #daemon needs a while before starting
 sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
 sleep 5
