@@ -7,13 +7,17 @@
 section() { # print out sections
     printf "\n$(tput setaf 2)----- %s -----$(tput sgr0)\n\n" "$1"
 }
+
 ERR() {
-    echo "[ERR] $1"
+    echo "$(tput setaf 9)[ERR]$(tput sgr0) $1"
     exit 65
 }
+
 WARN() {
-    echo "[WARN] $1"
+    echo "$(tput setaf 3)[WARN]$(tput sgr0) $1"
 }
+
+
 
 # Check if JKiosk already exists
 [ -d "$HOME/JKiosk" ] && ERR 'JKiosk already installed'
@@ -47,13 +51,20 @@ sudo apt-get install -y vim unclutter sed #install needed packages
 
 section '2. Select Your Institution'
 
-institutions="$(curl https://buseroo.com/api/institutions)"
-: 'Format of API:
-Riverdale Country School (newline)
+# Hard-coded for now
+institutions='Riverdale Country School
 Fieldston
-Horace Mann
-'
-institution="$(echo "$institutions" | gum filter)"
+Horace Mann'
+# Choices from API
+    # Format of API response:
+    # 'Riverdale Country School (newline)
+    # Fieldston
+    # Horace Mann'
+# institutions="$(curl https://buseroo.com/api/institutions)"
+
+default_institution='Riverdale Country School'
+institution="$(echo "$institutions" | gum filter || echo "$default_institution")"
+[ -z "$institution" ] && institution="$default_institution" #default
 
 
 
@@ -69,7 +80,7 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 
 
-section '4. Filling in Values' # Insert values into files because they cannot expand values such as ~ or $(whoami)
+section '4. Filling in Values' # Expanding values into files because they cannot expand values such as ~ or $(whoami)
 # kiosk.service
 old_text_end="INSERTED_HERE_BY_INSTALL_SH"
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator
@@ -89,7 +100,7 @@ sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
 section '5. Processing JKiosk Files' # Moves files to correct locations
 
 # sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
-sudo cp "$BASE/exec/system/kiosk.service" "/lib/systemd/system" || ERR "can't move kiosk.service"
+sudo cp "$BASE/exec/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR "can't move kiosk.service"
 crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
 # Make files executable
@@ -117,15 +128,7 @@ pcmanfm --set-wallpaper "$BASE/theme/desktop background.png" #this usu does it i
 
 
 
-section '7. Enabling kiosk mode'
-
-sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
-
-
-
-
-
-section '8. Finishing Up'
+section '7. Finishing Up'
 
 # Source jkiosk.sh on every terminal window opened (session startup)
 grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
@@ -144,6 +147,10 @@ git config --global user.email joel@joelgrayson.com
 
 
 
-section '9. Starting up kiosk mode!'
+section '8. Starting up kiosk mode!'
+sleep 8 #daemon needs a while before starting
+sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
+sleep 5
 sudo systemctl start kiosk.service
+
 
