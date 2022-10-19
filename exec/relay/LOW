@@ -6,9 +6,9 @@
 # Last modified 10.1.22
 
 import RPi.GPIO as GPIO
-from time import sleep
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(14, GPIO.OUT) #relay pin
+
 GPIO.output(14, GPIO.LOW)

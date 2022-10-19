@@ -75,7 +75,6 @@ jkiosk() {
 
 
     #* Connect Methods
-
     called=false
 
     # Help
@@ -86,15 +85,16 @@ jkiosk() {
     [ "$1" = "off" ] && called=true && off
 
     # Plumbing
-    [ "$1" = "enable" ]  && called=true && enable
-    [ "$1" = "disable" ] && called=true && disable
-    [ "$1" = "start" ]   && called=true && start
-    [ "$1" = "stop" ]    && called=true && stop
-    [ "$1" = "status" ]  && called=true && status
-    [ "$1" = "uninstall" ]  && called=true && uninstall
+    [ "$1" = "enable" ]    && called=true && enable
+    [ "$1" = "disable" ]   && called=true && disable
+    [ "$1" = "start" ]     && called=true && start
+    [ "$1" = "stop" ]      && called=true && stop
+    [ "$1" = "status" ]    && called=true && status
+    [ "$1" = "uninstall" ] && called=true && uninstall
 	
 
     # If no command was triggered
     ! $called && echo "Unknown command: $1
-Type 'jkiosk help' for full commands"
+Type \`jkiosk help\` for a full list of commands"
+
 }

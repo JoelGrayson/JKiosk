@@ -20,15 +20,20 @@ bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 ```sh
 bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 ```
+The command will take around a minute to run and the kiosk should start displaying the buseroo.com website on your selected institution. If not, check the debugging section below:
 
 <details>
     <summary>
-        Debugging problems with installing JKiosk
+        <b>Debugging problems installing JKiosk</b>
     </summary>
     <ul>
         <li><b>Problem</b>: How to uninstall JKiosk?
         <br/>
         <b>Solution</b>: <code>bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"</code>
+        </li>
+        <li><b>Problem</b>: How to change the specified institution?
+        <br/>
+        <b>Solution</b>: Uninstall and reinstall JKiosk, specifying the right institution this time.
         </li>
         <li><b>Problem</b>: Get the error message <code>Job for kiosk.service failed because the control process exited with err... See "systemctl status kiosk.services" and "journalctl -xe" for details</code>
         <br/>
@@ -38,48 +43,23 @@ bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 </details>
 
 
+<br/>
 
 
 
+# How to Use
+Type `jkiosk off` to stop the kiosk and `jkiosk on` to restart it.
+
+
+<br/>
 
 
 
-# JKiosk
-# Entry Point
-/.bashrc -> JKiosk.sh (have JKiosk command)
-@reboot in crontab -> JKiosk (JKiosk on)
+# About the Code
+* `kiosk.service` (`/usr/lib/systemd/system/kiosk.service`)
+    The kiosk service file specifies kiosk mode configurations for the system daemon such as the environment and where the kiosk.sh file is located.
+* `kiosk.sh`
+    The kiosk shell file puts the kiosk in kiosk mode when executed. It is called by the system daemon based on kiosk.service's configuration.
+* `jkiosk.sh`
+    Makes managing the kiosk in the command line easier through simple commands such as `jkiosk on`, `jkiosk off`, `jkiosk status`, and `jkiosk uninstall`. It is sourced from `~/.bashrc` on every shell session startup
 
-## How To Use
-```bash
-JKiosk enable
-JKiosk start
-#if necessary, sudo reboot
-```
-
-## About This File & Directory
-This file and directory contains what I have configured on the Raspberry Pi OS. It includes files and aliases to other system files. This file describes the usage of each file.
-
-### Necessary For Kiosk
-#### Kiosk.service (/usr/lib/systemd/system/kiosk.service)
-This file is located at /usr/lib/systemd/system/kiosk.service
-Kiosk service file (kiosk.service) has information about kiosk mode such as the environment as well as where the kiosk.sh file is.
-
-#### kiosk.sh
-Kiosk shell file has configuration about the Raspi kiosk mode.
-It is called by the kiosk.service file.
-
-#### reboot startup.sh
-Called by the cronjob when reopening kiosk.
-
-
-### Syntactic Sugar
-#### ~/.bashrc
-Calls the JKiosk.sh
-
-#### JKiosk.sh
-Has custom commands to make command line kiosk management easier such as `JKiosk`
-
-
-# Background Splash Screen
-* GUI add in desktop preferences
-* /usr/share/plymouth/themes/pix/splash.png for system
