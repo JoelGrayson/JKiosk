@@ -7,13 +7,20 @@ section() { # print out sections
     printf "\n$(tput setaf 2)----- %s -----$(tput sgr0)\n\n" "$1"
 }
 
+
+
+
+section 'Turn off Kiosk Mode'
+sudo systemctl disable kiosk.service
+sudo systemctl stop kiosk.service
+
+
+
 section 'Removing JKiosk'
 rm -rf "$HOME/JKiosk"
 sudo rm "/usr/lib/systemd/system/kiosk.service"
 
 
-section 'Turn off Kiosk Mode'
-sudo systemctl disable kiosk.service
 
 
 section 'Restoring Desktop Wallpaper'
