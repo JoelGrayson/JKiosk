@@ -65,7 +65,7 @@ Horace Mann'
 default_institution='Riverdale Country School'
 institution="$(echo "$institutions" | gum filter || echo "$default_institution")"
 [ -z "$institution" ] && institution="$default_institution" #default
-echo "Selected $institution as institution."
+echo "Selected \"$(tput bold)$institution$(tput sgr0)\" as institution."
 
 
 

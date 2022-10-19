@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# ABOUT: Source this file to access `jkiosk` command
+# ABOUT: Source this file to access `jkiosk` command for controlling `sudo systemctl kiosk.service``
 # Created 2.2022
 # Last modified on 10.7.22
 
 jkiosk() {
     #* Methods
 	jkiosk_help() { #local function not defined outside
-		echo "Parameter (such as 'jkiosk enable')"
+		echo "Parameter (such as \`jkiosk enable\`)"
 		echo "# Porcelain (high-level commands)"
-		echo "* on - enable & start"
-		echo "* off - disable, stop, & reboot"
+		echo "  * on - enable & start"
+		echo "  * off - disable, stop, & reboot"
 		echo "# Plumbing (low-level)"
-		echo "* enable"
-		echo "* disable"
-		echo "* start"
-		echo "* status"
-        echo "* uninstall"
+		echo "  * enable"
+		echo "  * disable"
+		echo "  * start"
+		echo "  * status"
+        echo "  * uninstall"
 	}
 
     on() {
@@ -28,45 +28,47 @@ jkiosk() {
     off() {
         echo "~~~Turning OFF~~~"
         
+        echo "Stopping"
+        sudo systemctl stop kiosk.service
+        sleep 3
+        
         echo "Disabling"
         sudo systemctl disable kiosk.service
-        echo "Stopping"
+
         sleep 3
-        sudo systemctl stop kiosk.service
         echo "Rebooting"
-        sleep 3
         sudo reboot
     }
 
-    enable() {
+    enable() { #pi enters kiosk mode on boot
         echo "~~~Enabled kiosk~~~"
-        echo "Type 'sudo reboot' to disable"
+        echo "Now, pi will go into kiosk mode when booting."
 
         sudo systemctl enable kiosk.service
     }
 
-    disable() {
+    disable() { #pi does not enter kiosk mode on boot
         echo "~~~Disabling kiosk~~~"
-        echo "Type 'sudo reboot' to disable"
+        echo "Now, pi will no longer go into kiosk mode when booting."
 
         sudo systemctl disable kiosk.service
     }
 
-    start() {
+    start() { #start kiosk mode now
         echo "~~~Starting kiosk~~~"
 
         sudo systemctl start kiosk.service
     }
 
-    stop() {
+    stop() { #stop current kiosk mode
         echo "~~~Stopping kiosk~~~"
+        echo "Kiosk mode off for now."
 
         sudo systemctl stop kiosk.service
     }
 
     status() {
         echo "~~~Getting Status of kiosk.service~~~"
-
         sudo systemctl status kiosk.service
     }
 
