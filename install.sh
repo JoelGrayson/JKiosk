@@ -2,6 +2,7 @@
 # ABOUT: This file is located at http://buseroo.com/JKiosk/install.sh
 # Last updated 10.7.22
 # Created 11.2021
+VERSION="1.1"
 
 
 section() { # print out sections
@@ -90,10 +91,10 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 
 
-section '5. Filling in Values' # Expanding values into files because they cannot expand values such as ~ or $(whoami)
+section '5. Expanding *_INSERTED_HERE_BY_INSTALL_SH Values' # Filling in values in files because they cannot expand values such as ~ or $(whoami)
 # kiosk.service
 old_text_end="INSERTED_HERE_BY_INSTALL_SH"
-sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator
+sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator so path (/) not confused with separator
 sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
 sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
 sed -i "s;GROUP_$old_text_end;$user_group;g" "$BASE/exec/system/kiosk.service" #user specified group earlier
@@ -102,6 +103,9 @@ sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
 # kiosk.sh
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.sh"
 sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
+# jkiosk.sh
+sed -i "s;DATE_$old_text_end;$(date);g" "$BASE/exec/system/jkiosk.sh"
+sed -i "s;VERSION_$old_text_end;$VERSION;g" "$BASE/exec/system/jkiosk.sh"
 
 
 
