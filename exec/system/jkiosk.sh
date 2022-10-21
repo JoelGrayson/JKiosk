@@ -18,7 +18,7 @@ jkiosk() {
 		echo "  * status"
 		echo "# More"
 		echo "  * version - show when JKiosk installed"
-		echo "  * upgrade - uninstalls & reinstalls"
+		echo "  * reinstall"
         echo "  * uninstall"
 	}
 
@@ -81,8 +81,8 @@ jkiosk() {
         bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
     }
 
-    upgrade() {
-        echo '~~~Upgrading JKiosk from VERSION_INSERTED_HERE_BY_INSTALL_SH to latest~~~'
+    reinstall() {
+        echo '~~~Reinstalling JKiosk from VERSION_INSERTED_HERE_BY_INSTALL_SH to latest~~~'
 
         bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
         bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
@@ -107,7 +107,7 @@ jkiosk() {
     [ "$1" = "stop" ]      && called=true && stop
     [ "$1" = "status" ]    && called=true && status
     [ "$1" = "version" ] && called=true && version
-    [ "$1" = "upgrade" ] || [ "$1" = "update" ] && called=true && upgrade
+    [ "$1" = "reinstall" ] && called=true && reinstall
     [ "$1" = "uninstall" ] && called=true && uninstall
 	
 

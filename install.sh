@@ -18,6 +18,11 @@ WARN() {
     echo "$(tput setaf 3)[WARN]$(tput sgr0) $1"
 }
 
+command_exists() {
+    command -v "$*" &> /dev/null
+    return $?
+}
+
 
 
 # Check if JKiosk already exists
@@ -32,12 +37,6 @@ section '1. Preparing'
 
 sudo apt-get update
 sudo apt-get upgrade -y
-# <gum> Install gum for question
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-sudo apt update && sudo apt install gum
-# </gum>
 sudo apt purge -y smartsim java-common wolfram-engine scratch nuscratch #remove unnecessary packages
 # sudo apt purge -y libreoffice* scratch2 remove other unnecessary packages
 sudo apt clean -y
@@ -45,6 +44,19 @@ sudo apt autoremove -y
 sudo apt-get install -y vim unclutter sed #install needed packages
     # sed for kiosk.service parsing
     # unclutter to hide the cursor
+
+# <gum> Install gum for question
+if ! command_exists 'gum' #gum does not exist
+then
+    echo "Installing gum package"
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+    sudo apt update && sudo apt-get install gum
+    sleep 1
+    exit
+fi
+# </gum>
 
 
 
@@ -64,7 +76,16 @@ Horace Mann'
 # institutions="$(curl https://buseroo.com/api/institutions)"
 
 default_institution='Riverdale Country School'
-institution="$(echo "$institutions" | gum filter || echo "$default_institution")"
+institution="$default_institution"
+if command_exists "gum"; then
+    # Backup institution
+    institution="$(echo "$institutions" | gum filter || echo "$default_institution")"
+else
+    # If gum does not exist, use read
+    echo "Here are the available institutions:"
+    echo "$institutions"
+    institution="$(read -pr "Select your institution: ")"
+fi
 [ -z "$institution" ] && institution="$default_institution" #default
 echo "Selected \"$(tput bold)$institution$(tput sgr0)\" as institution."
 
@@ -73,8 +94,15 @@ echo "Selected \"$(tput bold)$institution$(tput sgr0)\" as institution."
 
 
 section '3. What Group Are You?'
-printf "\nHere are a list of all the groups:\n$(groups)\n"
-user_group="$(gum input --prompt "What group is this user in (probably $(whoami))? ")"
+printf '\nHere are a list of all the groups:\n%s\n' "$(groups)"
+the_prompt="What group is this user in (probably $(whoami))? "
+user_group="$(whoami)"
+if command_exists "gum"; then
+    user_group="$(gum input --prompt "$the_prompt")"
+else
+    user_group="$(read -rp "$the_prompt")"
+fi
+[ -z "$user_group" ] && user_group="$(whoami)" #default value
 
 
 
