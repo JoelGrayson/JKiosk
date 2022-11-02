@@ -41,9 +41,10 @@ sudo apt purge -y smartsim java-common wolfram-engine scratch nuscratch #remove 
 # sudo apt purge -y libreoffice* scratch2 remove other unnecessary packages
 sudo apt clean -y
 sudo apt autoremove -y
-sudo apt-get install -y vim unclutter sed #install needed packages
-    # sed for kiosk.service parsing
-    # unclutter to hide the cursor
+sudo apt-get install -y unclutter sed at vim #install needed packages
+    # `sed`` for kiosk.service parsing
+    # `unclutter`` to hide the cursor
+    # `at` for daily_on_times_check.sh
 
 # <gum> Install gum for question
 if ! command_exists 'gum' #gum does not exist
@@ -127,13 +128,15 @@ sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
 sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
 sed -i "s;GROUP_$old_text_end;$user_group;g" "$BASE/exec/system/kiosk.service" #user specified group earlier
 # cronjobs
-sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
+sed -i "s;BASE_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
 # kiosk.sh
 sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.sh"
 sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
 # jkiosk.sh
 sed -i "s;DATE_$old_text_end;$(date);g" "$BASE/exec/system/jkiosk.sh"
 sed -i "s;VERSION_$old_text_end;$VERSION;g" "$BASE/exec/system/jkiosk.sh"
+# interpret_times.pl
+sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/interpret_times.pl"
 
 
 

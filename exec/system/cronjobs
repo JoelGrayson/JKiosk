@@ -1,7 +1,5 @@
 # Turn on monitor on reboot
-@reboot "HOME_INSERTED_HERE_BY_INSTALL_SH/JKiosk/exec/relay/LOW"
+@reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/exec/relay/LOW"
 
-# Turn off monitor through relay at 4pm
-00 4 * * * "HOME_INSERTED_HERE_BY_INSTALL_SH/JKiosk/exec/relay/HIGH"
-# Turn off itself at 4:01pm
-01 4 * * * sudo reboot -h now
+# At 12:01am every day, check buseroo.com for kiosk's on and off times
+0 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/exec/system/daily_on_off_times_check.sh"
