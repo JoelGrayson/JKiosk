@@ -1,7 +1,7 @@
 from gpiozero import Button
 
 btn=Button(14)
-
+# btn.wait_for_active()
 
 
 """

@@ -137,6 +137,9 @@ sed -i "s;DATE_$old_text_end;$(date);g" "$BASE/exec/system/jkiosk.sh"
 sed -i "s;VERSION_$old_text_end;$VERSION;g" "$BASE/exec/system/jkiosk.sh"
 # interpret_times.pl
 sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/interpret_times.pl"
+# Daily On Times Check
+sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/daily_on_times_check.pl"
+sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/daily_on_times_check.pl"
 
 
 
