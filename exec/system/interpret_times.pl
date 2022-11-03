@@ -41,11 +41,11 @@ for my $line_num (0..$#lines) { # $line_num - zero-based line number
 
     #*|| Executing
     if ($operation eq 'ON') {
-        # system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/relay/LOW' $time");
         system("echo 'Turning on at $time'");
+        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/monitor/turn_on.py' $time");
     } elsif ($operation eq 'OFF') {
-        # system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/relay/HIGH' $time");
         system("echo 'Turning off at $time'");
+        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/monitor/turn_off.py' $time");
     } else { #should never happen
         die "Unknown operation '$operation'";
     }

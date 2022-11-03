@@ -16,6 +16,8 @@ jkiosk() {
 		echo "  * disable"
 		echo "  * start"
 		echo "  * status"
+        echo "# Scheduling"
+        echo "  * schedule - show schedule for today"
 		echo "# More"
 		echo "  * version - show when JKiosk installed"
 		echo "  * reinstall"
@@ -75,6 +77,10 @@ jkiosk() {
         echo "~~~Getting Status of kiosk.service~~~"
         sudo systemctl status kiosk.service
     }
+    
+    schedule() {
+        atq
+    }
 
     uninstall() {
         echo '~~~Uninstalling JKiosk from this Raspberry Pi~~~'
@@ -106,7 +112,8 @@ jkiosk() {
     [ "$1" = "start" ]     && called=true && start
     [ "$1" = "stop" ]      && called=true && stop
     [ "$1" = "status" ]    && called=true && status
-    [ "$1" = "version" ] && called=true && version
+    [ "$1" = "schedule" ]  && called=true && schedule
+    [ "$1" = "version" ]   && called=true && version
     [ "$1" = "reinstall" ] && called=true && reinstall
     [ "$1" = "uninstall" ] && called=true && uninstall
 	

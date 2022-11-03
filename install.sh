@@ -154,8 +154,10 @@ crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns 
 # Make files executable
 chmod +x "$BASE/exec/system/kiosk.sh"
 chmod +x "$BASE/exec/system/jkiosk.sh"
-chmod +x "$BASE/exec/relay/HIGH"
-chmod +x "$BASE/exec/relay/LOW"
+chmod +x "$BASE/exec/monitor/turn_on.py"
+chmod +x "$BASE/exec/monitor/turn_off.py"
+chmod +x "$BASE/exec/monitor/status.py"
+chmod +x "$BASE/exec/button/listen.py"
 
 
 
