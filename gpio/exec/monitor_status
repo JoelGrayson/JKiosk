@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+from gpiozero import LED
+
+def status():
+    relayPin=23
+    return "on" if LED(relayPin).is_active else "off"
+
+print(status()) #goes to STDOUT

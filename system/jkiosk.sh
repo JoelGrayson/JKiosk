@@ -5,30 +5,38 @@
 # Last modified on 10.7.22
 
 jkiosk() {
-    #* Methods
-	jkiosk_help() { #local function not defined outside
+    # <TOC>:
+    #    Defining Methods
+    #    Exposing Methods
+    # </TOC>
+
+    #* Defining Methods
+	help() { #local function not defined outside
 		echo "Parameter (such as \`jkiosk enable\`)"
-		echo "# Porcelain (high-level commands)"
+		echo "# Control Kiosk"
 		echo "  * on - enable & start"
 		echo "  * off - stop & disable"
-		echo "# Plumbing (low-level)"
+		echo "## Control Kiosk Low-Level"
 		echo "  * enable"
 		echo "  * disable"
 		echo "  * start"
 		echo "  * status"
+        echo ""
         echo "# Scheduling"
         echo "  * schedule - show schedule for today"
-		echo "# More"
+        echo ""
+        echo "# Monitor"
+        echo "  * turn_on_monitor"
+        echo "  * turn_off_monitor"
+        echo "  * monitor_status"
+        echo ""
+		echo "# JKiosk"
 		echo "  * version - show when JKiosk installed"
 		echo "  * reinstall"
         echo "  * uninstall"
 	}
 
-    version() {
-        echo 'JKiosk Version VERSION_INSERTED_HERE_BY_INSTALL_SH'
-        echo 'Installed on DATE_INSERTED_HERE_BY_INSTALL_SH'
-    }
-
+    # Control Kiosk
     on() {
         echo "~~~Turning ON~~~"
         sudo systemctl enable kiosk.service
@@ -45,7 +53,7 @@ jkiosk() {
         echo "Disabling"
         sudo systemctl disable kiosk.service
     }
-
+    ## Control Kiosk Low-Level
     enable() { #pi enters kiosk mode on boot
         echo "~~~Enabled kiosk~~~"
         echo "Now, pi will go into kiosk mode when booting."
@@ -77,9 +85,37 @@ jkiosk() {
         echo "~~~Getting Status of kiosk.service~~~"
         sudo systemctl status kiosk.service
     }
-    
+
+    # Scheduling
     schedule() {
         atq
+    }
+
+    delete_schedule() {
+        atrm
+    }
+
+    # Monitor
+    turn_on_monitor() {
+        echo "~~~Turning on monitor~~~"
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_on_monitor
+    }
+
+    turn_off_monitor() {
+        echo "~~~Turning off monitor~~~"
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_off_monitor
+    }
+
+    monitor_status() {
+        echo "~~~Getting monitor status~~~"
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor_status
+    }
+    
+    
+    # JKiosk
+    version() {
+        echo 'JKiosk Version VERSION_INSERTED_HERE_BY_INSTALL_SH'
+        echo 'Installed on DATE_INSERTED_HERE_BY_INSTALL_SH'
     }
 
     uninstall() {
@@ -96,30 +132,39 @@ jkiosk() {
 
 
 
-    #* Connect Methods
+    #* Exposing Methods
     called=false
 
-    # Help
-	[ -z "$1" ] || [ "$1" = 'help' ] && called=true && jkiosk_help
+    # Help if no parameters or `help` is the parameter
+	[ -z "$1" ] || [ "$1" = 'help' ] && called=true && help
 
-    # Porcelain
-    [ "$1" = "on" ]  && called=true && on
-    [ "$1" = "off" ] && called=true && off
 
-    # Plumbing
-    [ "$1" = "enable" ]    && called=true && enable
-    [ "$1" = "disable" ]   && called=true && disable
-    [ "$1" = "start" ]     && called=true && start
-    [ "$1" = "stop" ]      && called=true && stop
-    [ "$1" = "status" ]    && called=true && status
-    [ "$1" = "schedule" ]  && called=true && schedule
-    [ "$1" = "version" ]   && called=true && version
-    [ "$1" = "reinstall" ] && called=true && reinstall
-    [ "$1" = "uninstall" ] && called=true && uninstall
-	
+    # Control Kiosk
+    [ "$1" = "on" ]               && called=true && on
+    [ "$1" = "off" ]              && called=true && off
+    ## Control Kiosk Low-Level
+    [ "$1" = "enable" ]           && called=true && enable
+    [ "$1" = "disable" ]          && called=true && disable
+    [ "$1" = "start" ]            && called=true && start
+    [ "$1" = "stop" ]             && called=true && stop
+    [ "$1" = "status" ]           && called=true && status
+
+    # Scheduling
+    [ "$1" = "schedule" ]         && called=true && schedule
+    [ "$1" = "delete_schedule" ]  && called=true && delete_schedule
+
+    # Monitor
+    [ "$1" = "turn_on_monitor" ]  && called=true && turn_on_monitor
+    [ "$1" = "turn_off_monitor" ] && called=true && turn_off_monitor
+    [ "$1" = "monitor_status" ]   && called=true && monitor_status
+
+    # JKiosk
+    [ "$1" = "version" ]          && called=true && version
+    [ "$1" = "reinstall" ]        && called=true && reinstall
+    [ "$1" = "uninstall" ]        && called=true && uninstall
+    
 
     # If no command was triggered
     ! $called && echo "Unknown command: $1
 Type \`jkiosk help\` for a full list of commands"
-
 }

@@ -1,1 +1,0 @@
-The monitor is plugged into the "normally on" outlet of the relay, so that it is always on even while the pi's GPIO pins aren't on yet. This means sending a HIGH signal, turns off the monitor and a LOW signal keeps the monitor on.

@@ -42,10 +42,10 @@ for my $line_num (0..$#lines) { # $line_num - zero-based line number
     #*|| Executing
     if ($operation eq 'ON') {
         system("echo 'Turning on at $time'");
-        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/monitor/turn_on.py' $time");
+        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_on_monitor' $time");
     } elsif ($operation eq 'OFF') {
         system("echo 'Turning off at $time'");
-        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/exec/monitor/turn_off.py' $time");
+        system("at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_off_monitor' $time");
     } else { #should never happen
         die "Unknown operation '$operation'";
     }

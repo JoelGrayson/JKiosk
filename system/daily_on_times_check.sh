@@ -14,4 +14,4 @@ jdate() {
 }
 
 url="https://buseroo.com/api/kiosk/on-times?institution=INSTITUTION_INSERTED_HERE_BY_INSTALL_SH&date=$(jdate)"
-curl "$url" | "BASE_INSERTED_HERE_BY_INSTALL_SH/exec/system/interpret_times.pl"
+curl "$url" | "BASE_INSERTED_HERE_BY_INSTALL_SH/system/interpret_times.pl"

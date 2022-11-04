@@ -12,7 +12,7 @@ Environment=DISPLAY=:0.0
 # GROUP_* is the user group specified by the user in a prompt
 Environment=XAUTHORITY=HOME_INSERTED_HERE_BY_INSTALL_SH/.Xauthority
 Type=forking
-ExecStart=/bin/bash BASE_INSERTED_HERE_BY_INSTALL_SH/exec/system/kiosk.sh
+ExecStart=/bin/bash BASE_INSERTED_HERE_BY_INSTALL_SH/system/kiosk.sh
 Restart=on-abort
 User=USERNAME_INSERTED_HERE_BY_INSTALL_SH
 Group=GROUP_INSERTED_HERE_BY_INSTALL_SH

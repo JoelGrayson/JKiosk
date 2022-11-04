@@ -1,5 +1,0 @@
-# Turn on monitor on reboot
-@reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/exec/monitor/turn_on.py"
-
-# At 12:01am every day, check buseroo.com for kiosk's on and off times
-0 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/exec/system/daily_on_off_times_check.sh"

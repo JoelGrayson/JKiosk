@@ -2,9 +2,10 @@
 # ABOUT: This file is located at http://buseroo.com/JKiosk/install.sh
 # Last updated 10.7.22
 # Created 11.2021
-VERSION="1.0"
 
+VERSION="1.1"
 
+#* Helpers
 section() { # print out sections
     printf "\n$(tput setaf 2)----- %s -----$(tput sgr0)\n\n" "$1"
 }
@@ -25,7 +26,7 @@ command_exists() {
 
 
 
-# Check if JKiosk already exists
+#* Check if JKiosk already exists
 [ -d "$HOME/JKiosk" ] && ERR 'JKiosk already installed'
 
 
@@ -122,24 +123,24 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 section '5. Expanding *_INSERTED_HERE_BY_INSTALL_SH Values' # Filling in values in files because they cannot expand values such as ~ or $(whoami)
 # kiosk.service
-old_text_end="INSERTED_HERE_BY_INSTALL_SH"
-sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.service" #; separator so path (/) not confused with separator
-sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/kiosk.service"
-sed -i "s;USERNAME_$old_text_end;$(whoami);g" "$BASE/exec/system/kiosk.service"
-sed -i "s;GROUP_$old_text_end;$user_group;g" "$BASE/exec/system/kiosk.service" #user specified group earlier
-# cronjobs
-sed -i "s;BASE_$old_text_end;$HOME;g" "$BASE/exec/system/cronjobs"
-# kiosk.sh
-sed -i "s;HOME_$old_text_end;$HOME;g" "$BASE/exec/system/kiosk.sh"
-sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/kiosk.sh"
-# jkiosk.sh
-sed -i "s;DATE_$old_text_end;$(date);g" "$BASE/exec/system/jkiosk.sh"
-sed -i "s;VERSION_$old_text_end;$VERSION;g" "$BASE/exec/system/jkiosk.sh"
-# interpret_times.pl
-sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/interpret_times.pl"
-# Daily On Times Check
-sed -i "s;BASE_$old_text_end;$BASE;g" "$BASE/exec/system/daily_on_times_check.pl"
-sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/daily_on_times_check.pl"
+eEnd="INSERTED_HERE_BY_INSTALL_SH" #expansion end
+USERNAME=$(whoami)
+GROUP="$user_group"
+INSTITUTION="$institution"
+DATE="$(date)"
+sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/system/kiosk.service" #; separator so path (/) not confused with separator
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/kiosk.service"
+sed -i "s;USERNAME_$eEnd;$USERNAME;g"       "$BASE/system/kiosk.service"
+sed -i "s;GROUP_$eEnd;$GROUP;g"             "$BASE/system/kiosk.service" #user specified group earlier
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/cronjobs"
+sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/system/kiosk.sh"
+sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/kiosk.sh"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/jkiosk.sh"
+sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
+sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/interpret_times.pl"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/daily_on_times_check.pl"
+sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/daily_on_times_check.pl"
 
 
 
@@ -147,17 +148,19 @@ sed -i "s;INSTITUTION_$old_text_end;$institution;g" "$BASE/exec/system/daily_on_
 
 section '6. Processing JKiosk Files' # Moves files to correct locations
 
-# sudo cp "$BASE/exec/system/kiosk.service" "/usr/lib/systemd/system" || ERR "can't move kiosk.service"
-sudo cp "$BASE/exec/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR "can't move kiosk.service"
-crontab "$BASE/exec/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
+sudo cp "$BASE/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR "can't move kiosk.service"
+crontab "$BASE/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
-# Make files executable
-chmod +x "$BASE/exec/system/kiosk.sh"
-chmod +x "$BASE/exec/system/jkiosk.sh"
-chmod +x "$BASE/exec/monitor/turn_on.py"
-chmod +x "$BASE/exec/monitor/turn_off.py"
-chmod +x "$BASE/exec/monitor/status.py"
-chmod +x "$BASE/exec/button/listen.py"
+# Authorize executable
+chmod u+x "$BASE/system/kiosk.sh"
+chmod u+x "$BASE/system/jkiosk.sh"
+chmod u+x "$BASE/system/interpret_times.pl"
+chmod u+x "$BASE/system/daily_on_times_check.sh"
+chmod u+x "$BASE/gpio/executables/monitor_status"
+chmod u+x "$BASE/gpio/executables/turn_on_monitor"
+chmod u+x "$BASE/gpio/executables/turn_off_monitor"
+chmod u+x "$BASE/gpio/monitor.py"
+chmod u+x "$BASE/gpio/schematic.md"
 
 
 
@@ -184,9 +187,11 @@ section '8. Finishing Up'
 grep -q '# JKiosk' < "$HOME/.bashrc" && WARN "There are duplicate records of JKiosk in ~/.bashrc. Remove one."
 echo "
 # JKiosk
-source '$BASE/exec/system/jkiosk.sh'
+source '$BASE/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
-source "$BASE/exec/system/jkiosk.sh" #source for this session
+
+source "$BASE/system/jkiosk.sh" #source for this session so command accessible now
+
 
 
 # Git
