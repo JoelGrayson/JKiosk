@@ -5,11 +5,6 @@ After=graphical.target
 
 [Service]
 Environment=DISPLAY=:0.0
-# $*_INSERTED_HERE_BY_INSTALL_SH variables are expanded in the install script.
-# HOME_* is $HOME or ~
-# BASE_* is the path of the kiosk.sh file
-# USERNAME_* is the $(whoami) value
-# GROUP_* is the user group specified by the user in a prompt
 Environment=XAUTHORITY=HOME_INSERTED_HERE_BY_INSTALL_SH/.Xauthority
 Type=forking
 ExecStart=/bin/bash BASE_INSERTED_HERE_BY_INSTALL_SH/system/kiosk.sh

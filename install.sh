@@ -122,12 +122,17 @@ cd "$BASE" || ERR 'Could not install JKiosk properly'
 
 
 section '5. Expanding *_INSERTED_HERE_BY_INSTALL_SH Values' # Filling in values in files because they cannot expand values such as ~ or $(whoami)
-# kiosk.service
+# $*_INSERTED_HERE_BY_INSTALL_SH variables are expanded in the install script.
+# HOME_* is $HOME or ~
+# BASE_* is the path of the kiosk.sh file
+# USERNAME_* is the $(whoami) value
+# GROUP_* is the user group specified by the user in a prompt
 eEnd="INSERTED_HERE_BY_INSTALL_SH" #expansion end
 USERNAME=$(whoami)
 GROUP="$user_group"
 INSTITUTION="$institution"
 DATE="$(date)"
+
 sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/system/kiosk.service" #; separator so path (/) not confused with separator
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/kiosk.service"
 sed -i "s;USERNAME_$eEnd;$USERNAME;g"       "$BASE/system/kiosk.service"
@@ -139,8 +144,8 @@ sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/interpret_times.pl"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/daily_on_times_check.pl"
-sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/daily_on_times_check.pl"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/daily_on_times_check.sh"
+sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/daily_on_times_check.sh"
 
 
 
@@ -151,16 +156,13 @@ section '6. Processing JKiosk Files' # Moves files to correct locations
 sudo cp "$BASE/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR "can't move kiosk.service"
 crontab "$BASE/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
-# Authorize executable
+# Authorize executables
 chmod u+x "$BASE/system/kiosk.sh"
 chmod u+x "$BASE/system/jkiosk.sh"
 chmod u+x "$BASE/system/interpret_times.pl"
 chmod u+x "$BASE/system/daily_on_times_check.sh"
-chmod u+x "$BASE/gpio/executables/monitor_status"
-chmod u+x "$BASE/gpio/executables/turn_on_monitor"
-chmod u+x "$BASE/gpio/executables/turn_off_monitor"
-chmod u+x "$BASE/gpio/monitor.py"
-chmod u+x "$BASE/gpio/schematic.md"
+chmod u+x "$BASE/gpio/exec/*"
+chmod u+x "$BASE/gpio/*.py"
 
 
 
