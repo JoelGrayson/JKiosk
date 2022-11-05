@@ -1,6 +1,6 @@
 #!/bin/bash
 # ABOUT: This file is located at http://buseroo.com/JKiosk/install.sh
-# Last updated 10.7.22
+# Last updated 11.5.22
 # Created 11.2021
 
 VERSION="1.1"

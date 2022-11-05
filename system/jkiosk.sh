@@ -2,7 +2,7 @@
 
 # ABOUT: Source this file to access `jkiosk` command for controlling `sudo systemctl kiosk.service``
 # Created 2.2022
-# Last modified on 10.7.22
+# Last modified on 11.5.22
 
 jkiosk() {
     # <TOC>:
@@ -166,5 +166,5 @@ jkiosk() {
 
     # If no command was triggered
     ! $called && echo "Unknown command: $1
-Type \`jkiosk help\` for a full list of commands"
+Type \`jkiosk help\` for a full list of commands" && exit 1
 }

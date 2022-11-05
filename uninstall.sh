@@ -1,7 +1,7 @@
 #!/bin/bash
 # ABOUT: This file is located at https://buseroo.com/JKiosk/uninstall.sh
 # Last updated 10.7.22
-# Created 10.7.22
+# Created 11.5.22
 
 section() { # print out sections
     printf "\n$(tput setaf 2)----- %s -----$(tput sgr0)\n\n" "$1"
@@ -40,3 +40,5 @@ section 'Remaining Steps to do Manually below:'
 grep '# JKiosk' < ~/.bashrc && echo 'Remove # JKiosk line from ~/.bashrc'
 echo 'Run \`sudo reboot\` when ready'
 
+
+unset -f jkiosk #remove jkiosk function from this session
