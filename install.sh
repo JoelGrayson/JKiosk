@@ -161,8 +161,8 @@ chmod u+x "$BASE/system/kiosk.sh"
 chmod u+x "$BASE/system/jkiosk.sh"
 chmod u+x "$BASE/system/interpret_times.pl"
 chmod u+x "$BASE/system/daily_on_times_check.sh"
-chmod u+x "$BASE/gpio/exec/*"
-chmod u+x "$BASE/gpio/*.py"
+chmod u+x "$BASE"/gpio/exec/* #glob not in string
+chmod u+x "$BASE"/gpio/*.py
 
 
 

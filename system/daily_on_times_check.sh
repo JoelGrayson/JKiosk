@@ -14,4 +14,10 @@ jdate() {
 }
 
 url="https://buseroo.com/api/kiosk/on-times?institution=INSTITUTION_INSERTED_HERE_BY_INSTALL_SH&date=$(jdate)"
-curl "$url" | "BASE_INSERTED_HERE_BY_INSTALL_SH/system/interpret_times.pl"
+contents="$(curl "$url")"
+echo "$contents" | "BASE_INSERTED_HERE_BY_INSTALL_SH/system/interpret_times.pl"
+
+# Log
+echo "___$(jdate)___" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/on-logs.txt"
+echo "$contents" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/on-logs.txt"
+

@@ -126,7 +126,9 @@ jkiosk() {
     reinstall() {
         echo '~~~Reinstalling JKiosk from VERSION_INSERTED_HERE_BY_INSTALL_SH to latest~~~'
 
+        printf "\n\n\n-----Uninstalling-----\n\n\n"
         bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
+        printf "\n\n\n-----Installing-----\n\n\n"
         bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
     }
 
