@@ -2,4 +2,4 @@
 @reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_on_monitor"
 
 # At 12:01am every day, check buseroo.com for kiosk's on and off times
-0 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/system/daily_on_off_times_check.sh"
+0 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/system/interpret-times.js"
