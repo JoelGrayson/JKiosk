@@ -58,6 +58,10 @@ then
     sleep 1
     exit
 fi
+# install node
+sudo curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
+sudo apt-get install -y nodejs
+
 # </gum>
 
 
