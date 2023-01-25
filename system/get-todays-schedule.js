@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 const { exec }=require('child_process');
-const { writeFileSync, appendFileSync } = require('fs');
+const { appendFileSync } = require('fs');
 
 // Called at 12:05am every day
 
 (async ()=>{
-    const hyphenatedInstitutionName='riverdale-country-school'; // TODO:
+    const hyphenatedInstitutionName='INSTITUTION_INSERTED_HERE_BY_INSTALL_SH';
     const env='prod';
     const schedule=await fetch(`${env==='dev' ? 'http://localhost:3000' : 'https://buseroo.com'}/api/institution/public/kiosk/schedule/today?institution=${hyphenatedInstitutionName}`).then(res=>res.json());
     console.log(`Today's schedule for ${new Date().toLocaleString()}: ${JSON.stringify(schedule)}`);

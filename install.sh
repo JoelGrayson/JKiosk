@@ -43,9 +43,9 @@ sudo apt purge -y smartsim java-common wolfram-engine scratch nuscratch #remove 
 sudo apt clean -y
 sudo apt autoremove -y
 sudo apt-get install -y unclutter sed at vim #install needed packages
-    # `sed`` for kiosk.service parsing
-    # `unclutter`` to hide the cursor
-    # `at` for daily_on_times_check.sh
+    # `sed` for kiosk.service parsing
+    # `unclutter` to hide the cursor
+    # `at` for get-todays-schedule.js
 
 # <gum> Install gum for question
 if ! command_exists 'gum' #gum does not exist
@@ -143,9 +143,8 @@ sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/kiosk.sh"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/interpret_times.pl"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/daily_on_times_check.sh"
-sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/daily_on_times_check.sh"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js"
+sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
 
 
 
@@ -159,8 +158,7 @@ crontab "$BASE/system/cronjobs" #sets cronjobs as the new crontab so turns on/of
 # Authorize executables
 chmod u+x "$BASE/system/kiosk.sh"
 chmod u+x "$BASE/system/jkiosk.sh"
-chmod u+x "$BASE/system/interpret_times.pl"
-chmod u+x "$BASE/system/daily_on_times_check.sh"
+chmod u+x "$BASE/system/get-todays-schedule.js"
 chmod u+x "$BASE"/gpio/exec/* #glob not in string
 chmod u+x "$BASE"/gpio/*.py
 
