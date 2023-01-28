@@ -18,7 +18,7 @@ def time_gte(time1, time2): #both strings returns bool (hour:minute)
 
 
 def should_be_on_now(): #assumes times are in order from earliest to latest
-    with open('./todays-schedule.json') as f:
+    with open('BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json') as f:
         schedule=json.load(f)
         now=get_now()
         should_be=False
