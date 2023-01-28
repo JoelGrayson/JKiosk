@@ -16,6 +16,11 @@ def listen():
     last_pressed=None #datetime of last button press
     will_turn_off_at=None #for the kiosk to turn itself off after 10 minutes if not supposed to be on according to the schedule
     turning_off_active_started=None #time when the button was first activated to turn off the monitor (hold down button for 3 seconds to turn off the monitor)
+
+    if should_be_on_now():
+        turn_on()
+    else:
+        turn_off()
     
     while True: #Listen for button press
         curr_status=status() #current monitor status

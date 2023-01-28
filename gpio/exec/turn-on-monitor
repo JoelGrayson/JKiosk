@@ -1,9 +1,5 @@
-#!/usr/bin/env python
-from gpiozero import LED
+#!/bin/bash
 
-def turn_on():
-    """sends a LOW signal to the relay, turning the monitor on"""
-    relayPin=25
-    LED(relayPin).off()
-
-turn_on()
+echo 25 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio3/direction
+echo 0 > /sys/class/gpio/gpio3/value
