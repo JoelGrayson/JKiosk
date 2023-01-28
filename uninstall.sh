@@ -13,7 +13,7 @@ section() { # print out sections
 section 'Turn off Kiosk Mode'
 sudo systemctl disable kiosk.service
 sudo systemctl stop kiosk.service
-
+cd "$HOME"
 
 
 section 'Removing JKiosk'

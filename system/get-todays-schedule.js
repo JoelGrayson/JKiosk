@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
+// ABOUT: Called at 12:05am every day
+
 const { exec }=require('child_process');
 const { appendFileSync, writeFileSync } = require('fs');
-
-// Called at 12:05am every day
 
 (async ()=>{
     function hyphenateName(name) {
