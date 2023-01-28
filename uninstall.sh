@@ -19,6 +19,7 @@ sudo systemctl stop kiosk.service
 section 'Removing JKiosk'
 rm -rf "$HOME/JKiosk"
 sudo rm "/usr/lib/systemd/system/kiosk.service"
+crontab -r
 
 
 
