@@ -195,7 +195,7 @@ echo "
 source '$BASE/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
 
-source "$BASE/system/jkiosk.sh" #source for this session so command accessible now
+"$HOME/.bashrc" #source for this session so command accessible now
 
 
 

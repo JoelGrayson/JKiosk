@@ -26,9 +26,9 @@ jkiosk() {
         echo "  * schedule - show schedule for today"
         echo ""
         echo "# Monitor"
-        echo "  * turn_on_monitor"
-        echo "  * turn_off_monitor"
-        echo "  * monitor_status"
+        echo "  * turn-on-monitor"
+        echo "  * turn-off-monitor"
+        echo "  * monitor-status"
         echo ""
 		echo "# JKiosk"
 		echo "  * version - show when JKiosk installed"
@@ -98,17 +98,17 @@ jkiosk() {
     # Monitor
     turn_on_monitor() {
         echo "~~~Turning on monitor~~~"
-        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_on_monitor
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-on-monitor
     }
 
     turn_off_monitor() {
         echo "~~~Turning off monitor~~~"
-        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_off_monitor
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-off-monitor
     }
 
     monitor_status() {
         echo "~~~Getting monitor status~~~"
-        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor_status
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor-status
     }
     
     
@@ -156,9 +156,9 @@ jkiosk() {
     [ "$1" = "delete_schedule" ]  && called=true && delete_schedule
 
     # Monitor
-    [ "$1" = "turn_on_monitor" ]  && called=true && turn_on_monitor
-    [ "$1" = "turn_off_monitor" ] && called=true && turn_off_monitor
-    [ "$1" = "monitor_status" ]   && called=true && monitor_status
+    [ "$1" = "turn-on-monitor" ]  && called=true && turn_on_monitor
+    [ "$1" = "turn-off-monitor" ] && called=true && turn_off_monitor
+    [ "$1" = "monitor-status" ]   && called=true && monitor_status
 
     # JKiosk
     [ "$1" = "version" ]          && called=true && version
