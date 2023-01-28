@@ -43,3 +43,4 @@ echo 'Run `sudo reboot` when ready'
 
 
 unset -f jkiosk #remove jkiosk function from this session
+exit 0

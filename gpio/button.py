@@ -29,7 +29,7 @@ def listen():
                 will_turn_off_at=None
 
         if turning_off_active_started!=None and time()>turning_off_active_started: #turn off after holding down for three seconds
-            if curr_status=="on":
+            if curr_status=="on" and btn.is_active:
                 turn_off()
                 print('Turned monitor off')
             turning_off_active_started=None
