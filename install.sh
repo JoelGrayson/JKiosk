@@ -148,7 +148,7 @@ sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js"
 sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
-sed -i "s;BASE$eEnd;$BASE;g"                "$BASE/gpio/should-be-on-now.py"
+sed -i "s;BASE$eEnd;$BASE;g"                "$BASE/gpio/should_be_on_now.py"
 
 
 

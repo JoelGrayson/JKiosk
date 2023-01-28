@@ -13,7 +13,5 @@ The monitor is plugged into the "normally on" outlet of the relay, so that it is
 * pin 20 - ground for the monitor
 * pin 22 - GPIO25 for outputing electricity to the monitor
 
-
-Wiring Diagram:
-![Wiring diagram](https://raw.githubusercontent.com/JoelGrayson/Buseroo/main/designs/raspberry%20pi/button%20listening%20wire%20schematic.jpg)
+![Wiring Diagram](https://i.imgur.com/GbXoAHr.jpeg)
 

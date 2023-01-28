@@ -6,7 +6,14 @@ const { appendFileSync, writeFileSync } = require('fs');
 // Called at 12:05am every day
 
 (async ()=>{
-    const hyphenatedInstitutionName='INSTITUTION_INSERTED_HERE_BY_INSTALL_SH';
+    function hyphenateName(name) {
+        name=name.trim().toLowerCase();
+        for (const separator of ['+', '-', '%20', ' '])
+            name=name.replaceAll(separator, '-');
+        return name;
+    }
+    const hyphenatedInstitutionName=hyphenateName('INSTITUTION_INSERTED_HERE_BY_INSTALL_SH');
+
     const env='prod';
     const schedule=await fetch(`${env==='dev' ? 'http://localhost:3000' : 'https://buseroo.com'}/api/institution/public/kiosk/schedule/today?institution=${hyphenatedInstitutionName}`).then(res=>res.json());
     console.log(`Today's schedule for ${new Date().toLocaleString()}: ${JSON.stringify(schedule)}`);

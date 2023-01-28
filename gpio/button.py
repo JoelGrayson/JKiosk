@@ -36,6 +36,7 @@ def listen():
                 turn_on()
                 print('Turned monitor on')
                 if not should_be_on_now():
+                    print('Will turn off in 10 minutes because off-hour')
                     will_turn_off_at=time()+10*60 #turn off after 10 minutes of inactivity during after-hours
             elif curr_status=="on": #already on, so no difference
                 turn_off()
