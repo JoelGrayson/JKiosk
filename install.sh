@@ -104,8 +104,10 @@ the_prompt="What group is this user in (probably $(whoami))? "
 user_group="$(whoami)"
 if command_exists "gum"; then
     user_group="$(gum input --prompt "$the_prompt")"
+    [ -z "$user_group" ] && user_group=$(whoami) #if no value provided, use default
 else
-    user_group="$(read -rp "$the_prompt")"
+    echo "$the_prompt"
+    user_group="$(read -r)"
 fi
 [ -z "$user_group" ] && user_group="$(whoami)" #default value
 
@@ -149,6 +151,7 @@ sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js"
 sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/should_be_on_now.py"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/monitor.py"
 
 
 
