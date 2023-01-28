@@ -130,6 +130,7 @@ jkiosk() {
         bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
         printf "\n\n\n-----Installing-----\n\n\n"
         bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
+        sudo reboot
     }
 
 
