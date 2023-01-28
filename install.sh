@@ -148,7 +148,7 @@ sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
 sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js"
 sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
-sed -i "s;BASE$eEnd;$BASE;g"                "$BASE/gpio/should_be_on_now.py"
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/should_be_on_now.py"
 
 
 
@@ -196,7 +196,7 @@ echo "
 source '$BASE/system/jkiosk.sh'
 " >> "$HOME/.bashrc"
 
-source "$BASE/system/jkiosk.sh" #source for this session so command accessible now
+source ~/.bashrc #source for this session so command accessible now
 
 
 
