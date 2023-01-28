@@ -22,4 +22,4 @@ def status(): #-> Literal["on"] | Literal["off"]:
     #     return "off"
     # else:
     #     return "on"
-    return subprocess.check_output('BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor-status')
+    return subprocess.check_output('BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor-status').decode().strip()

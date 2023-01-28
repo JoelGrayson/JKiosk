@@ -1,6 +1,6 @@
-# Turn on monitor on reboot
-@reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-on-monitor"
-# @reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/button.py"
+# @reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-on-monitor"
+# Make sure button script is running
+@reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/button.py"
 
 # At 12:05am every day, check buseroo.com for kiosk's on and off times
 5 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/system/get-todays-schedule.js"
