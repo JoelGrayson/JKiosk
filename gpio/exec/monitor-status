@@ -4,8 +4,8 @@ from gpiozero import LED
 def status():
     relayPin=23
     if LED(relayPin).value==1: #active=HIGH=monitor off
-        print("off")
+        return "off"
     else:
-        print("on")
+        return "on"
 
 print(status()) #goes to STDOUT
