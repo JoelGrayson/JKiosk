@@ -3,7 +3,7 @@ from gpiozero import LED
 
 def turn_off():
     """sends a HIGH signal to the relay, turning the monitor off"""
-    relayPin=18
+    relayPin=23
     LED(relayPin).on()
 
 turn_off()

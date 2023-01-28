@@ -62,4 +62,3 @@ Type `jkiosk off` to stop the kiosk and `jkiosk on` to restart it.
     The kiosk shell file puts the kiosk in kiosk mode when executed. It is called by the system daemon based on kiosk.service's configuration.
 * `jkiosk.sh`
     Makes managing the kiosk in the command line easier through simple commands such as `jkiosk on`, `jkiosk off`, `jkiosk status`, and `jkiosk uninstall`. It is sourced from `~/.bashrc` on every shell session startup
-

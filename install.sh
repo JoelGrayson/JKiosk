@@ -56,7 +56,6 @@ then
     echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
     sudo apt update && sudo apt-get install gum
     sleep 1
-    exit
 fi
 # install node
 sudo curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
@@ -165,6 +164,8 @@ chmod u+x "$BASE/system/jkiosk.sh"
 chmod u+x "$BASE/system/get-todays-schedule.js"
 chmod u+x "$BASE"/gpio/exec/* #glob not in string
 chmod u+x "$BASE"/gpio/*.py
+chmod u+x "$BASE"/gpio/kiosk2mac.sh
+chmod u+x "$BASE"/gpio/mac2kiosk.sh
 
 
 
