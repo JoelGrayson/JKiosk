@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { exec }=require('child_process');
-const { appendFileSync } = require('fs');
+const { appendFileSync, writeFileSync } = require('fs');
 
 // Called at 12:05am every day
 
@@ -26,6 +26,7 @@ const { appendFileSync } = require('fs');
                 console.log(`Stdout from exec: ${stdout}`);
         });
     });
+    writeFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json', schedule);
 
     // Log
     appendFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/schedule-log.txt', `___${`${new Date().getMonth()+1}.${new Date().getDate()}.${new Date().getFullYear()}`}___\n${log}\n`);
