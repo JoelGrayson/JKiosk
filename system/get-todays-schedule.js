@@ -24,16 +24,16 @@ const { appendFileSync, writeFileSync } = require('fs');
         let toLog=`Scheduled to turn ${action} at ${time}`;
         console.log(toLog);
         log+=toLog+'\n';
-        exec(`at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn_${action}_monitor' ${time}`, (error, stdout, stderr)=>{
+        exec(`at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-${action}-monitor' ${time}`, (error, stdout, stderr)=>{
             if (error)
                 console.error(`Error from exec: ${error}`);
-            if (stderr)
+            if (stderr!=null)
                 console.error(`Stderr from exec: ${error}`);
             if (stdout)
                 console.log(`Stdout from exec: ${stdout}`);
         });
     });
-    writeFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json', schedule);
+    writeFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json', JSON.stringify(schedule));
 
     // Log
     appendFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/schedule-log.txt', `___${`${new Date().getMonth()+1}.${new Date().getDate()}.${new Date().getFullYear()}`}___\n${log}\n`);
