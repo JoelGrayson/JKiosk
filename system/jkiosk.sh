@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# ABOUT: Source this file to access `jkiosk` command for controlling `sudo systemctl kiosk.service``
+# ABOUT: Source this file to access `jkiosk` command for controlling the kiosk
 # Created 2.2022
-# Last modified on 11.5.22
+# Last modified 1.29.23
 
 jkiosk() {
     # <TOC>:
@@ -29,6 +29,7 @@ jkiosk() {
         echo "  * turn-on-monitor"
         echo "  * turn-off-monitor"
         echo "  * monitor-status"
+        echo "  * follow-todays-schedule - turns on/off based on the schedule"
         echo ""
 		echo "# JKiosk"
 		echo "  * version - show when JKiosk installed"
@@ -40,6 +41,7 @@ jkiosk() {
     on() {
         echo "~~~Turning ON~~~"
         sudo systemctl enable kiosk.service
+        sleep 3
         sudo systemctl start kiosk.service
     }
 
@@ -111,6 +113,10 @@ jkiosk() {
         BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/monitor-status
     }
     
+    follow_todays_schedule() { #turns monitor on or off based on today's schedule
+        echo "~~~Following today's schedule~~~"
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/follow-todays-schedule
+    }
     
     # JKiosk
     version() {
@@ -134,39 +140,37 @@ jkiosk() {
     }
 
 
-
     #* Exposing Methods
     called=false
 
     # Help if no parameters or `help` is the parameter
-	[ -z "$1" ] || [ "$1" = 'help' ] && called=true && help
-
+	[ -z "$1" ] || [ "$1" = 'help' ]     && called=true && help
 
     # Control Kiosk
-    [ "$1" = "on" ]               && called=true && on
-    [ "$1" = "off" ]              && called=true && off
+    [ "$1" = "on" ]                      && called=true && on
+    [ "$1" = "off" ]                     && called=true && off
     ## Control Kiosk Low-Level
-    [ "$1" = "enable" ]           && called=true && enable
-    [ "$1" = "disable" ]          && called=true && disable
-    [ "$1" = "start" ]            && called=true && start
-    [ "$1" = "stop" ]             && called=true && stop
-    [ "$1" = "status" ]           && called=true && status
+    [ "$1" = "enable" ]                  && called=true && enable
+    [ "$1" = "disable" ]                 && called=true && disable
+    [ "$1" = "start" ]                   && called=true && start
+    [ "$1" = "stop" ]                    && called=true && stop
+    [ "$1" = "status" ]                  && called=true && status
 
     # Scheduling
-    [ "$1" = "schedule" ]         && called=true && schedule
-    [ "$1" = "delete_schedule" ]  && called=true && delete_schedule
+    [ "$1" = "schedule" ]                && called=true && schedule
+    [ "$1" = "delete_schedule" ]         && called=true && delete_schedule
 
     # Monitor
-    [ "$1" = "turn-on-monitor" ]  && called=true && turn_on_monitor
-    [ "$1" = "turn-off-monitor" ] && called=true && turn_off_monitor
-    [ "$1" = "monitor-status" ]   && called=true && monitor_status
+    [ "$1" = "turn-on-monitor" ]         && called=true && turn_on_monitor
+    [ "$1" = "turn-off-monitor" ]        && called=true && turn_off_monitor
+    [ "$1" = "monitor-status" ]          && called=true && monitor_status
+    [ "$1" = "follow-todays-schedule" ]  && called=true && follow_todays_schedule
 
     # JKiosk
-    [ "$1" = "version" ]          && called=true && version
-    [ "$1" = "reinstall" ]        && called=true && reinstall
-    [ "$1" = "uninstall" ]        && called=true && uninstall
+    [ "$1" = "version" ]                 && called=true && version
+    [ "$1" = "reinstall" ]               && called=true && reinstall
+    [ "$1" = "uninstall" ]               && called=true && uninstall
     
-
     # If no command was triggered
     ! $called && echo "Unknown command: $1
 Type \`jkiosk help\` for a full list of commands" && exit 1

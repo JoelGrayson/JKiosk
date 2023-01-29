@@ -212,9 +212,12 @@ git config --global user.email joel@joelgrayson.com
 
 
 section '9. Starting up kiosk mode!'
-sleep 8 #daemon needs a while before starting
+sleep 6 #daemon needs a while before starting
 sudo systemctl enable kiosk.service #means the kiosk will automatically turn into kiosk mode on reboot
-sleep 5
+sleep 4
 sudo systemctl start kiosk.service
-
-
+if command_exists "jkiosk"; then
+    jkiosk follow-todays-schedule
+else
+    echo "Run \`jkiosk follow-todays-schedule\` in a new terminal"
+fi

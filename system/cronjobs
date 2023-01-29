@@ -5,3 +5,4 @@
 # At 12:05am every day, check buseroo.com for kiosk's on and off times
 4 0 * * * date >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/get-todays-schedule.js.log"
 5 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/system/get-todays-schedule.js" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/get-todays-schedule.js.log" 2>&1
+6 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/follow-todays-schedule" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/get-todays-schedule.js.log" 2>&1

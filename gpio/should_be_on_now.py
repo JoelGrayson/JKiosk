@@ -8,7 +8,7 @@ from datetime import datetime
 def get_now(): #string time
     return datetime.now().strftime('%H:%M')
 
-def parse_time(time): #string -> tuple ∵ tuple can do gt lt operations
+def parse_time(time): #string -> tuple bc tuple can do gt lt operations
     hours=int(re.match(r'(\d{1,2}):(\d{1,2})', time).group(1)) #type: ignore
     minutes=int(re.match(r'(\d{1,2}):(\d{1,2})', time).group(2)) #type: ignore
     return (hours, minutes)
@@ -32,4 +32,4 @@ def should_be_on_now(): #assumes times are in order from earliest to latest
         return should_be
 
 if __name__=='__main__':
-    print(should_be_on_now())
+    print(should_be_on_now(), end='')
