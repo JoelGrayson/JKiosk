@@ -179,12 +179,12 @@ Type \`jkiosk help\` for a full list of commands" && exit 1
 
 jkiosk_autocomplete() {
     if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
-        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstal uninstall"
+        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstall uninstall"
             # "on" "off"
             # "enable" "disable" "start" "status"
             # "schedule" "delete-schedule"
             # "turn-on-monitor" "turn-off-monitor" "monitor-status" "follow-todays-schedule"
-            # "version" "reinstal" "uninstall"
+            # "version" "reinstall" "uninstall"
         COMPREPLY=( $(compgen -W "$available_options" "${COMP_WORDS[1]}") )
     else #second argument filled in by files
         COMPREPLY=( $(ls) )

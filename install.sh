@@ -171,7 +171,8 @@ crontab "$BASE/system/cronjobs" #sets cronjobs as the new crontab so turns on/of
 chmod u+x "$BASE/system/kiosk.sh"
 chmod u+x "$BASE/system/jkiosk.sh"
 chmod u+x "$BASE/system/get-todays-schedule.js"
-chmod u+x "$BASE"/gpio/exec/* #glob not in string
+chmod u+x "$BASE"/gpio/exec/**/* #glob not in string
+chmod u+x "$BASE"/gpio/exec/button-led/*
 chmod u+x "$BASE"/gpio/*.py
 chmod u+x "$BASE"/gpio/kiosk2mac.sh
 chmod u+x "$BASE"/gpio/mac2kiosk.sh
