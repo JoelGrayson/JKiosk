@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ls /sys/class/gpio/gpio25 > /dev/null 2&>1 || ( echo 25 > /sys/class/gpio/export; sleep 0.3; echo out > /sys/class/gpio/gpio25/direction )
+ls /sys/class/gpio/gpio25 > /dev/null 2>&1 || ( echo 25 > /sys/class/gpio/export; sleep 0.3; echo out > /sys/class/gpio/gpio25/direction )
 
 if [ "$(cat /sys/class/gpio/gpio25/value)" -eq "1" ]; then #if the relay is HIGH, then off
     echo "off"
