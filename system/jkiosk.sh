@@ -4,6 +4,20 @@
 # Created 2.2022
 # Last modified 1.29.23
 
+jkiosk_autocomplete() {
+    if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
+        COMPREPLY=(
+            "on" "off"
+            "enable" "disable" "start" "status"
+            "schedule" "delete-schedule"
+            "turn-on-monitor" "turn-off-monitor" "monitor-status" "follow-todays-schedule"
+            "version" "reinstal" "uninstall"
+        )
+    else #second argument filled in by files
+        COMPREPLY=( $(ls) )
+    fi
+}
+
 jkiosk() {
     # <TOC>:
     #    Defining Methods
@@ -24,6 +38,7 @@ jkiosk() {
         echo ""
         echo "# Scheduling"
         echo "  * schedule - show schedule for today"
+        echo "  * delete-schedule - cancel any turn on/off commands for today"
         echo ""
         echo "# Monitor"
         echo "  * turn-on-monitor"
@@ -158,7 +173,7 @@ jkiosk() {
 
     # Scheduling
     [ "$1" = "schedule" ]                && called=true && schedule
-    [ "$1" = "delete_schedule" ]         && called=true && delete_schedule
+    [ "$1" = "delete-schedule" ]         && called=true && delete_schedule
 
     # Monitor
     [ "$1" = "turn-on-monitor" ]         && called=true && turn_on_monitor
@@ -175,3 +190,5 @@ jkiosk() {
     ! $called && echo "Unknown command: $1
 Type \`jkiosk help\` for a full list of commands" && exit 1
 }
+
+complete -F jkiosk_autocomplete jkiosk
