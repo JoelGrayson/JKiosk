@@ -4,20 +4,6 @@
 # Created 2.2022
 # Last modified 1.29.23
 
-jkiosk_autocomplete() {
-    if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
-        COMPREPLY=(
-            "on" "off"
-            "enable" "disable" "start" "status"
-            "schedule" "delete-schedule"
-            "turn-on-monitor" "turn-off-monitor" "monitor-status" "follow-todays-schedule"
-            "version" "reinstal" "uninstall"
-        )
-    else #second argument filled in by files
-        COMPREPLY=( $(ls) )
-    fi
-}
-
 jkiosk() {
     # <TOC>:
     #    Defining Methods
@@ -189,6 +175,20 @@ jkiosk() {
     # If no command was triggered
     ! $called && echo "Unknown command: $1
 Type \`jkiosk help\` for a full list of commands" && exit 1
+}
+
+jkiosk_autocomplete() {
+    if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
+        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstal uninstall"
+            # "on" "off"
+            # "enable" "disable" "start" "status"
+            # "schedule" "delete-schedule"
+            # "turn-on-monitor" "turn-off-monitor" "monitor-status" "follow-todays-schedule"
+            # "version" "reinstal" "uninstall"
+        COMPREPLY=( $(compgen -W "$available_options" "${COMP_WORDS[1]}") )
+    else #second argument filled in by files
+        COMPREPLY=( $(ls) )
+    fi
 }
 
 complete -F jkiosk_autocomplete jkiosk
