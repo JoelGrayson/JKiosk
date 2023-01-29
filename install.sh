@@ -168,13 +168,12 @@ sudo cp "$BASE/system/kiosk.service" "/lib/systemd/system/kiosk.service" || ERR 
 crontab "$BASE/system/cronjobs" #sets cronjobs as the new crontab so turns on/off at right times and turns on kiosk on boot
 
 # Authorize executables
-chmod u+x "$BASE/system/kiosk.sh"
-chmod u+x "$BASE/system/jkiosk.sh"
-chmod u+x "$BASE/system/get-todays-schedule.js"
-chmod u+x "$BASE"/gpio/*.{py,sh}
-chmod u+x "$BASE"/gpio/exec/* #glob not in string
-chmod u+x "$BASE"/gpio/exec/button-led/*
-
+chmod +x "$BASE/system/kiosk.sh"
+chmod +x "$BASE/system/jkiosk.sh"
+chmod +x "$BASE/system/get-todays-schedule.js"
+chmod +x "$BASE"/gpio/*.{py,sh}
+chmod +x "$BASE"/gpio/exec/* #glob not in string
+chmod +x "$BASE"/gpio/exec/button-led/*
 
 
 

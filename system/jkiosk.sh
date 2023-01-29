@@ -24,7 +24,9 @@ jkiosk() {
         echo ""
         echo "# Scheduling"
         echo "  * schedule - show schedule for today"
+        echo "  * schedule-json - show schedule for today"
         echo "  * delete-schedule - cancel any turn on/off commands for today"
+        echo "  * should-be-on-now"
         echo ""
         echo "# Monitor"
         echo "  * turn-on-monitor"
@@ -94,8 +96,13 @@ jkiosk() {
         atq
     }
 
+    schedule_json() {
+        cat BASE_INSERTED_HERE_BY_INSTALL_SH/system/schedule.json
+    }
+
     delete_schedule() {
         atrm
+        rm BASE_INSERTED_HERE_BY_INSTALL_SH/system/schedule.json
     }
 
     # Monitor
@@ -107,6 +114,10 @@ jkiosk() {
     turn_off_monitor() {
         echo "~~~Turning off monitor~~~"
         BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-off-monitor
+    }
+
+    should_be_on_now() {
+        BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/should_be_on_now.py
     }
 
     monitor_status() {
@@ -159,7 +170,9 @@ jkiosk() {
 
     # Scheduling
     [ "$1" = "schedule" ]                && called=true && schedule
+    [ "$1" = "schedule-json" ]           && called=true && schedule_json
     [ "$1" = "delete-schedule" ]         && called=true && delete_schedule
+    [ "$1" = "should-be-on-now" ]        && called=true && should_be_on_now
 
     # Monitor
     [ "$1" = "turn-on-monitor" ]         && called=true && turn_on_monitor
@@ -179,7 +192,7 @@ Type \`jkiosk help\` for a full list of commands" && exit 1
 
 jkiosk_autocomplete() {
     if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
-        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstall uninstall"
+        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule should-be-on-now version reinstall uninstall"
             # "on" "off"
             # "enable" "disable" "start" "status"
             # "schedule" "delete-schedule"
