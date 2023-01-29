@@ -36,5 +36,5 @@ const { appendFileSync, writeFileSync } = require('fs');
     writeFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json', JSON.stringify(schedule));
 
     // Log
-    appendFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/system/schedule-log.txt', `___${`${new Date().getMonth()+1}.${new Date().getDate()}.${new Date().getFullYear()}`}___\n${log}\n`);
+    appendFileSync('BASE_INSERTED_HERE_BY_INSTALL_SH/logs/daily-schedules.log', `___${`${new Date().getMonth()+1}.${new Date().getDate()}.${new Date().getFullYear()}`}___\n${log}\n`);
 })();

@@ -7,6 +7,7 @@ from time import sleep, time
 from monitor import turn_on, turn_off, status
 from PINS import PINS
 from should_be_on_now import should_be_on_now
+from datetime import date
 
 def listen():
     o15=OutputDevice(PINS['button']['input']['gpio']) #for btn to receive input
@@ -59,5 +60,6 @@ def listen():
                 print('Unknown curr_status:', curr_status)
 
 if __name__=='__main__':
+    print(f'-----Date: {str(date.today())}-----')
     print('Listening to button...')
     listen()
