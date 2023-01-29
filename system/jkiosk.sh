@@ -127,16 +127,16 @@ jkiosk() {
 
     uninstall() {
         echo '~~~Uninstalling JKiosk from this Raspberry Pi~~~'
-        bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
+        bash -c "$(curl -L https://buseroo.com/JKiosk/uninstall.sh)"
     }
 
     reinstall() {
         echo '~~~Reinstalling JKiosk from VERSION_INSERTED_HERE_BY_INSTALL_SH to latest~~~'
 
         printf "\n\n\n-----Uninstalling-----\n\n\n"
-        bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"
+        bash -c "$(curl -L https://buseroo.com/JKiosk/uninstall.sh)"
         printf "\n\n\n-----Installing-----\n\n\n"
-        bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
+        bash -c "$(curl -L https://buseroo.com/JKiosk/install.sh)"
         sudo reboot
     }
 
