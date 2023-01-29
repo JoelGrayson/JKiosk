@@ -97,7 +97,7 @@ jkiosk() {
     }
 
     schedule_json() {
-        cat BASE_INSERTED_HERE_BY_INSTALL_SH/system/schedule.json
+        cat BASE_INSERTED_HERE_BY_INSTALL_SH/system/todays-schedule.json
     }
 
     delete_schedule() {
@@ -192,7 +192,7 @@ Type \`jkiosk help\` for a full list of commands" && exit 1
 
 jkiosk_autocomplete() {
     if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
-        local available_options="on off enable disable start status schedule delete-schedule turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule should-be-on-now version reinstall uninstall"
+        local available_options="on off enable disable start status schedule schedule-json delete-schedule should-be-on-now turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstall uninstall"
             # "on" "off"
             # "enable" "disable" "start" "status"
             # "schedule" "delete-schedule"
