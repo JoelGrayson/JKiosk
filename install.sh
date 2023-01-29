@@ -152,7 +152,7 @@ sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js
 sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/should_be_on_now.py"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/monitor.py"
-
+sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/exec/follow-todays-schedule"
 sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/logs/inserted-here-by-install-sh.txt"
 sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/logs/inserted-here-by-install-sh.txt"
 sed -i "s;USERNAME_$eEnd;$USERNAME;g"       "$BASE/logs/inserted-here-by-install-sh.txt"
