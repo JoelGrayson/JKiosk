@@ -1,4 +1,5 @@
 #!/bin/bash
 
-ls /sys/class/gpio/gpio25 > /dev/null 2>&1 || ( echo 25 > /sys/class/gpio/export; sleep 0.3; echo out > /sys/class/gpio/gpio25/direction )
+ls /sys/class/gpio/gpio25 > /dev/null 2>&1 || ( echo 25 > /sys/class/gpio/export )
+echo out > /sys/class/gpio/gpio25/direction
 echo 1 > /sys/class/gpio/gpio25/value
