@@ -1,8 +1,8 @@
 # On reboot:
 #     have the monitor turn on or off based on today's schedule
 @reboot "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/follow-todays-schedule" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/follow-todays-schedule.log" 2>&1
-#     start button script in the background (sleeps for 4 seconds to give the above script time to complete because only one script can access the pins at once)
-@reboot sleep 4 && "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/button.py" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/button.py.log" 2>&1
+#     start main script (button listener) in the background (sleeps for 4 seconds to give the above script time to complete because only one script can access the pins at once)
+@reboot sleep 4 && "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/main.py" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/main.py.log" 2>&1
 
 # Update today's schedule of on/off times every morning:
 #     Add date to log
