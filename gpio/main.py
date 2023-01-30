@@ -30,7 +30,7 @@ def listen_to_button():
                 turn_off_button_led()
 
         if will_turn_off_at!=None: #turn off if after-hours
-            if time()>will_turn_off_at and not should_be_on_now():
+            if time()>will_turn_off_at and should_be_on_now()=='off':
                 turn_off()
                 will_turn_off_at=None
 
