@@ -2,7 +2,7 @@
 
 # ABOUT: turns monitor on or off based on today's schedule
 
-ls /sys/class/gpio/gpio25 > /dev/null 2>&1 || ( echo 25 > /sys/class/gpio/export )
+ls /sys/class/gpio/gpio25 > /dev/null 2>&1 || ( echo 25 > /sys/class/gpio/export; sleep 0.1 )
 
 if [ "$(BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/should_be_on_now.py)" = "on" ]; then
     echo "Turning on monitor according to schedule."
