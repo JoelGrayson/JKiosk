@@ -25,10 +25,10 @@ const { appendFileSync, writeFileSync } = require('fs');
         console.log(toLog);
         log+=toLog+'\n';
         exec(`at -f 'BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/turn-${action}-monitor' ${time}`, (error, stdout, stderr)=>{
-            if (error)
+            if (error!=null && !error)
                 console.error(`Error from exec: ${error}`);
-            if (stderr!=null)
-                console.error(`Stderr from exec: ${error}`);
+            if (stderr!=null && !stderr)
+                console.error(`Stderr from exec: ${stderr}`);
             if (stdout)
                 console.log(`Stdout from exec: ${stdout}`);
         });
