@@ -36,6 +36,7 @@ jkiosk() {
         echo ""
 		echo "# JKiosk"
 		echo "  * version - show when JKiosk installed"
+		echo "  * logs - show logs"
 		echo "  * reinstall"
         echo "  * uninstall"
 	}
@@ -131,6 +132,14 @@ jkiosk() {
     }
     
     # JKiosk
+    logs() {
+        for f in "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/"*.log; do
+            echo "-----$f-----"
+            cat "$f"
+            echo
+        done
+    }
+
     version() {
         echo 'JKiosk Version VERSION_INSERTED_HERE_BY_INSTALL_SH'
         echo 'Installed on DATE_INSERTED_HERE_BY_INSTALL_SH'
@@ -179,6 +188,7 @@ jkiosk() {
     [ "$1" = "turn-off-monitor" ]        && called=true && turn_off_monitor
     [ "$1" = "monitor-status" ]          && called=true && monitor_status
     [ "$1" = "follow-todays-schedule" ]  && called=true && follow_todays_schedule
+    [ "$1" = "logs" ]                    && called=true && logs
 
     # JKiosk
     [ "$1" = "version" ]                 && called=true && version
@@ -192,7 +202,7 @@ Type \`jkiosk help\` for a full list of commands" && exit 1
 
 jkiosk_autocomplete() {
     if [ "$COMP_CWORD" = "1" ]; then #first command is filled in by commands
-        local available_options="on off enable disable start status schedule schedule-json delete-schedule should-be-on-now turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule version reinstall uninstall"
+        local available_options="on off enable disable start status schedule schedule-json delete-schedule should-be-on-now turn-on-monitor turn-off-monitor monitor-status follow-todays-schedule logs version reinstall uninstall"
             # "on" "off"
             # "enable" "disable" "start" "status"
             # "schedule" "delete-schedule"
