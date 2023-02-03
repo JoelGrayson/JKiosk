@@ -1,7 +1,7 @@
 # Quick-n-easy Install
 Running the following command will turn a Raspberry Pi into a Buseroo kiosk:
 ```sh
-bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
+bash -c "$(curl -L https://buseroo.com/JKiosk/install.sh)"
 ```
 
 
@@ -18,7 +18,7 @@ bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
 **Install JKiosk**
 5. Once the instructions are finished and the kiosk has rebooted, install JKiosk by running the following command:
 ```sh
-bash -c "$(curl -L http://buseroo.com/JKiosk/install.sh)"
+bash -c "$(curl -L https://buseroo.com/JKiosk/install.sh)"
 ```
 The command will take around a minute to run and the kiosk should start displaying the buseroo.com website on your selected institution. If not, check the debugging section below:
 
@@ -29,7 +29,7 @@ The command will take around a minute to run and the kiosk should start displayi
     <ul>
         <li><b>Problem</b>: How to uninstall JKiosk?
         <br/>
-        <b>Solution</b>: <code>bash -c "$(curl -L http://buseroo.com/JKiosk/uninstall.sh)"</code>
+        <b>Solution</b>: <code>bash -c "$(curl -L https://buseroo.com/JKiosk/uninstall.sh)"</code>
         </li>
         <li><b>Problem</b>: How to change the specified institution?
         <br/>
