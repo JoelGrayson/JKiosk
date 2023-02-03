@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Send an API request with body contents of the logs
+
+body=""
+
+for f in "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/"*.log; do
+    # Get the filename without the path
+    filename=$(basename "$f")
+    # Get the filename without the extension
+    filename="${filename%.*}"
+    # Get the contents of the file
+    contents=$(cat "$f")
+    # Send the API request
+    body+="----------$filename----------\n$contents\n\n"
+done
+curl -X POST -H "Content-Type: text/plain" -d "$body" "https://buseroo.com/api/institution/public/kiosk/logs?institution=HYPHENATED_INSTITUTION_NAME_INSERTED_HERE_BY_INSTALL_SH"

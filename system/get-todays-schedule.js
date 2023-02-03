@@ -6,13 +6,7 @@ const { exec }=require('child_process');
 const { appendFileSync, writeFileSync } = require('fs');
 
 (async ()=>{
-    function hyphenateName(name) {
-        name=name.trim().toLowerCase();
-        for (const separator of ['+', '-', '%20', ' '])
-            name=name.replaceAll(separator, '-');
-        return name;
-    }
-    const hyphenatedInstitutionName=hyphenateName('INSTITUTION_INSERTED_HERE_BY_INSTALL_SH');
+    const hyphenatedInstitutionName='HYPHENATED_INSTITUTION_NAME_INSERTED_HERE_BY_INSTALL_SH';
 
     const env='prod';
     const schedule=await fetch(`${env==='dev' ? 'http://localhost:3000' : 'https://buseroo.com'}/api/institution/public/kiosk/schedule/today?institution=${hyphenatedInstitutionName}`).then(res=>res.json());

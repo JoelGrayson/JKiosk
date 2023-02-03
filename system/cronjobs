@@ -15,3 +15,5 @@
 6 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/follow-todays-schedule" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/get-todays-schedule.js.log" 2>&1
 #     Turn off the button LED because the morning
 7 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/gpio/exec/button-led/turn-off" 2>&1
+#     Send logs to buseroo.com
+8 0 * * * "BASE_INSERTED_HERE_BY_INSTALL_SH/system/send-logs-to-buseroo-com" >> "BASE_INSERTED_HERE_BY_INSTALL_SH/logs/send-logs-to-buseroo-com.log" 2>&1

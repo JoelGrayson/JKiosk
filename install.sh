@@ -133,31 +133,35 @@ section '5. Expanding *_INSERTED_HERE_BY_INSTALL_SH Values' # Filling in values 
 # USERNAME_* is the $(whoami) value
 # GROUP_* is the user group specified by the user in a prompt
 eEnd="INSERTED_HERE_BY_INSTALL_SH" #expansion end
-USERNAME=$(whoami)
+USERNAME="$(whoami)"
 GROUP="$user_group"
-INSTITUTION="$institution"
+HYPHENATED_INSTITUTION_NAME="$(echo "$institution" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')"
 DATE="$(date)"
 
-sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/system/kiosk.service" #; separator so path (/) not confused with separator
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/kiosk.service"
-sed -i "s;USERNAME_$eEnd;$USERNAME;g"       "$BASE/system/kiosk.service"
-sed -i "s;GROUP_$eEnd;$GROUP;g"             "$BASE/system/kiosk.service" #user specified group earlier
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/cronjobs"
-sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/system/kiosk.sh"
-sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/kiosk.sh"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/jkiosk.sh"
-sed -i "s;DATE_$eEnd;$DATE;g"               "$BASE/system/jkiosk.sh"
-sed -i "s;VERSION_$eEnd;$VERSION;g"         "$BASE/system/jkiosk.sh"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/system/get-todays-schedule.js"
-sed -i "s;INSTITUTION_$eEnd;$INSTITUTION;g" "$BASE/system/get-todays-schedule.js"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/should_be_on_now.py"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/monitor.py"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/exec/follow-todays-schedule"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/gpio/button_led.py"
-sed -i "s;HOME_$eEnd;$HOME;g"               "$BASE/logs/inserted-here-by-install-sh.txt"
-sed -i "s;BASE_$eEnd;$BASE;g"               "$BASE/logs/inserted-here-by-install-sh.txt"
-sed -i "s;USERNAME_$eEnd;$USERNAME;g"       "$BASE/logs/inserted-here-by-install-sh.txt"
-sed -i "s;GROUP_$eEnd;$GROUP;g"             "$BASE/logs/inserted-here-by-install-sh.txt"
+replaceHyphenatedInstitutionName="s;HYPHENATED_INSTITUTION_NAME_$eEnd;$HYPHENATED_INSTITUTION_NAME;g"
+
+sed -i "s;HOME_$eEnd;$HOME;g"              "$BASE/system/kiosk.service" #; separator so path (/) not confused with separator
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/system/kiosk.service"
+sed -i "s;USERNAME_$eEnd;$USERNAME;g"      "$BASE/system/kiosk.service"
+sed -i "s;GROUP_$eEnd;$GROUP;g"            "$BASE/system/kiosk.service" #user specified group earlier
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/system/cronjobs"
+sed -i "s;HOME_$eEnd;$HOME;g"              "$BASE/system/kiosk.sh"
+sed -i "$replaceHyphenatedInstitutionName" "$BASE/system/kiosk.sh"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/system/jkiosk.sh"
+sed -i "s;DATE_$eEnd;$DATE;g"              "$BASE/system/jkiosk.sh"
+sed -i "s;VERSION_$eEnd;$VERSION;g"        "$BASE/system/jkiosk.sh"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/system/get-todays-schedule.js"
+sed -i "$replaceHyphenatedInstitutionName" "$BASE/system/get-todays-schedule.js"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/gpio/should_be_on_now.py"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/gpio/monitor.py"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/gpio/exec/follow-todays-schedule"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/gpio/button_led.py"
+sed -i "s;HOME_$eEnd;$HOME;g"              "$BASE/logs/inserted-here-by-install-sh.txt"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/logs/inserted-here-by-install-sh.txt"
+sed -i "s;USERNAME_$eEnd;$USERNAME;g"      "$BASE/logs/inserted-here-by-install-sh.txt"
+sed -i "s;GROUP_$eEnd;$GROUP;g"            "$BASE/logs/inserted-here-by-install-sh.txt"
+sed -i "$replaceHyphenatedInstitutionName" "$BASE/system/send-logs-to-buseroo-com"
+sed -i "s;BASE_$eEnd;$BASE;g"              "$BASE/system/send-logs-to-buseroo-com"
 
 
 
@@ -224,3 +228,4 @@ if command_exists "jkiosk"; then
 else
     echo "Run \`jkiosk follow-todays-schedule\` in a new terminal"
 fi
+
