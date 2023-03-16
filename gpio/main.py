@@ -3,7 +3,7 @@
 # ABOUT: This is an executable to be run when the kiosk is operating
 
 from gpiozero import InputDevice, OutputDevice
-from time import time
+from time import time, sleep
 from monitor import turn_on, turn_off, status, follow_todays_schedule
 from PINS import PINS
 from should_be_on_now import should_be_on_now
@@ -48,13 +48,24 @@ def listen_to_button():
             
             last_pressed=time()
 
-            if curr_status=="off":
+            if curr_status=="off": #turn on immediately if currently off
                 turn_on()
                 print('Turned monitor on')
                 turning_off_active_started=None
                 if should_be_on_now()=="off":
                     print('Will turn off in 10 minutes because off-hour')
                     will_turn_off_at=time()+10*60 #turn off after 10 minutes of inactivity during after-hours
+                
+                # Blink for three seconds (because monitor/relay system takes 3 seconds to turn on from off). Tells user that something is happening.
+                # Does not accept any other requests while turning on (e.g. turning off)
+                turn_off_button_led()
+                sleep(0.4)
+                for _ in range(4):
+                    turn_on_button_led()
+                    sleep(0.4)
+                    turn_off_button_led()
+                    sleep(0.4)
+
             elif curr_status=="on":
                 if turning_off_active_started==None: #trigger turn off after 3 seconds if still holding
                     turning_off_active_started=time()+3 #3 seconds later
