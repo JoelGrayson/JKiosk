@@ -60,7 +60,7 @@ def listen_to_button():
                 # Does not accept any other requests while turning on (e.g. turning off)
                 turn_off_button_led()
                 sleep(0.4)
-                for _ in range(4):
+                for _ in range(7):
                     turn_on_button_led()
                     sleep(0.4)
                     turn_off_button_led()
